@@ -1,0 +1,67 @@
+﻿@model IEnumerable<RealtyDomainObjects.News>
+@{
+    ViewBag.Title = "Новости";
+}
+<table style="width: 100%">
+    <tr>
+        <td style="width: 70%">
+            <table>
+                <tr>
+                    <td style="width: 50%">
+                        @foreach (var item in Model)
+                        {
+                            <img src="~/Content/2.jpg" /> <br />
+                            <h3>@Html.ActionLink(item.Title, "Detail", new { id = @item.Id }, null)</h3>
+                            <p>@Html.DisplayFor(modelItem => item.Content)</p>
+                            <small>@Html.DisplayFor(modelItem => item.PrintTime)</small>
+                            @Html.ActionLink("Подробней...", "Detail", new { id = @item.Id }, null)
+                            break;
+                        }
+                    </td>
+                    <td style="width: 50%; vertical-align:top">
+                    <b>Последние новости недвижимости Украины и мира</b><br />
+                        @foreach (var item in Model)
+                        {
+                            
+                                @Html.ActionLink(item.Title, "Detail", new { id = @item.Id }, null)
+                                <small>@Html.DisplayFor(modelItem => item.PrintTime)</small><br />
+                            
+         
+                        }
+                        @using (Html.BeginForm("NewAd", "ad", FormMethod.Post))
+                       {
+                       <input type="submit" value="Все новости недвижимости" class="btn  btn-info" />
+                       }
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td style="width: 30%; vertical-align:top">
+        <h4>Поиск Объявлений</h4>
+        @Html.Action("PartiallyIndex", "SearchBox")
+        </td>
+    </tr>
+</table>
+
+@*
+<table>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="~/Content/2.jpg" />
+            </td>
+            <td>
+                <h3>@Html.ActionLink(item.Title, "Detail", new { id = @item.Id }, null)</h3>
+                <p>@Html.DisplayFor(modelItem => item.Content)</p>
+                <small>@Html.DisplayFor(modelItem => item.PrintTime)</small>
+            </td>
+        </tr>
+    }
+</table>
+*@
+
+
+@section scripts{
+@Content.Script("cascadeSB_DDLs.js", Url)
+}

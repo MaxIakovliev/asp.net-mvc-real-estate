@@ -1,0 +1,27 @@
+﻿@{
+    SelectList commercialPropertyType = ViewBag.commercialPropertyType as SelectList;
+}
+<table style="width: 100%">
+    <tr>
+        <td style="width: 200px">
+            Тип недвижимости
+        </td>
+        <td>
+            @Html.DropDownList("commercialPropertyType", commercialPropertyType, null, new { @class = "searchBoxDDL"  })
+        </td>
+    </tr>
+</table>
+<table style="width: 100%">
+    <tr>
+        <td>
+            &nbsp; <b>Площадь</b>
+        </td>
+        <td>
+            от &nbsp; @Html.TextBox("sizemin", string.Empty, new { style = "width: 40px;" })&nbsp;
+        </td>
+        <td>
+            до &nbsp;@Html.TextBox("sizemax", string.Empty, new { style = "width: 40px;" })&nbsp;
+            м2.
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,334 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @*<link href="~/Scripts/bootstrap/css/Bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="~/Scripts/bootstrap/css/bootstrap-responsive.css" rel="stylesheet"  type="text/css" />*@
+    <link href="~/Scripts/bootstrap/css/magic-bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/LightStyle.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/form.LightStyle.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/jquery-ui-1.10.1.custom/development-bundle/themes/base/jquery.ui.all.css"
+        rel="stylesheet" type="text/css" />
+    @*@Styles.Render("~/Content/css")*@
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div id="pagewidth">
+        <div class="content-wrapper">
+            <div class="float-left">
+                @*<p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>*@
+                @*@Html.Partial("QuickTabSearch")*@ @*@Html.Action("QuickTabSearch", "SearchBox") временно отключено *@
+            </div>
+            <div class="float-right">
+                <section id="login">
+                        @Html.Partial("_LogOnPartial")
+                    </section>
+            </div>
+            <div id="main-menu" class="default">
+                @* <ul id="menu">*@
+                <ul class="nav nav-pills">
+                    <li style="height: 30px">
+                        @using (Html.BeginForm("NewAd", "ad", FormMethod.Post))
+                        {
+                            <input type="submit" value="Подать объявление" class="btn  btn-info" />
+                        }
+                    </li>
+                    @*     <li>@Html.ActionLink("Подать объявление", "NewAd", "ad")</li>*@
+                    <li>@Html.ActionLink("Главная", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Недвижимость", "Index", "Home", new { @id = "lnkMenuNedvigimost" })
+                        <div id="divNedvigemostMenu" class="floating-window shadow" style="display: none; margin-top:-5px">
+                            <div class="wrapper shadow" style="width: 100%; display: inline-block;">
+                                <dl class="unordered-list" style="float: left">
+                                    <dt><a href="http://dom.ria.ua/ru/%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3/%D0%9F%D1%80%D0%BE%D0%B4%D0%B0%D0%B6%D0%B0-%D0%B0%D1%80%D0%B5%D0%BD%D0%B4%D0%B0/">
+                                        Поиск недвижимости</a></dt>
+                                    <dd>
+                                        @Html.ActionLink("поиск на карте","Index","Maps")
+                                            
+                                            </dd>
+                                    <dd>
+                                        <a href="/realty_search.html" title="Расширенный поиск недвижимости">Расширенный поиск
+                                        </a>
+                                    </dd>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/Каталог/Аренда-Посуточно/Область/Киевская/Город/Украина/"
+                                            title="Посуточная аренда недвижимости Украины">Аренда посуточно</a>
+                                    </dd>
+                                    <br />
+                                    <dt>Другое</dt>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/%D0%9D%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8/state_name/%D0%9A%D0%B8%D0%B5%D0%B2%D1%81%D0%BA%D0%B0%D1%8F/city_name/%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D0%B0/State/%D0%9E%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C/City/%D0%93%D0%BE%D1%80%D0%BE%D0%B4/"
+                                            title="Новостройки Украины">Новостройки</a>
+                                    </dd>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/%D0%9A%D0%BE%D1%82%D1%82%D0%B5%D0%B4%D0%B6%D0%BD%D1%8B%D0%B9_%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%D0%BE%D0%BA/state_name/%D0%9A%D0%B8%D0%B5%D0%B2%D1%81%D0%BA%D0%B0%D1%8F/city_name/%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D0%B0/State/%D0%9E%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C/City/%D0%93%D0%BE%D1%80%D0%BE%D0%B4/"
+                                            title="Коттеджные городки">Коттеджные городки</a>
+                                    </dd>
+                                    <dd>
+                                        <a style="vertical-align: middle" href="http://dom.ria.ua/ru/%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3/%D0%9F%D1%80%D0%BE%D0%B4%D0%B0%D0%B6%D0%B0/%D0%97%D0%B0%D0%BB%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D0%B5_%D0%B8%D0%BC%D1%83%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%BE/%D0%9E%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C/%D0%9A%D0%B8%D0%B5%D0%B2%D1%81%D0%BA%D0%B0%D1%8F/%D0%93%D0%BE%D1%80%D0%BE%D0%B4/%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D0%B0/"
+                                            title="Конфискованная недвижимость Украины">Залоговое имущество</a></dd>
+                                    <dd>
+                                        <a style="vertical-align: middle" href="http://dom.ria.ua/ru/%D0%9D%D0%B5%D0%B4%D0%B2%D0%B8%D0%B6%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C/%D0%9F%D1%80%D0%BE%D0%B4%D0%B0%D0%B6%D0%B0/%D0%9D%D0%BE%D0%B2%D0%BE%D0%B5_%D0%B6%D0%B8%D0%BB%D1%8C%D0%B5/%D0%9E%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C/%D0%9A%D0%B8%D0%B5%D0%B2%D1%81%D0%BA%D0%B0%D1%8F/%D0%93%D0%BE%D1%80%D0%BE%D0%B4/%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D0%B0/"
+                                            title="Новое жилье в Ураине">Новое жилье</a></dd>
+                                    <dd>
+                                        <a style="vertical-align: middle" href="http://dom.ria.ua/ru/newbuildingsmaps/" title="Новостройки на карте">
+                                            Новостройки на карте</a></dd>
+                                    <dd>
+                                        <a style="vertical-align: middle" href="http://dom.ria.ua/ru/%D0%9A%D1%83%D1%80%D0%BE%D1%80%D1%82%D0%BD%D0%B0%D1%8F-%D0%BD%D0%B5%D0%B4%D0%B2%D0%B8%D0%B6%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C/"
+                                            title="Курортная недвижимость">Курортная недвижимость</a>
+                                    </dd>
+                                    <dd>
+                                        <a style="vertical-align: middle" href="http://dom.ria.ua/ru/%D0%AD%D0%BB%D0%B8%D1%82%D0%BD%D0%B0%D1%8F_%D0%9D%D0%B5%D0%B4%D0%B2%D0%B8%D0%B6%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C/"
+                                            title="Элитное жилье">Элитное жилье</a>
+                                    </dd>
+                                    <dd>
+                                        <a style="vertical-align: middle" href="http://dom.ria.ua/ru/default/user/thankspage/"
+                                            title="Благодарности пользователей">Благодарности пользователей</a>
+                                    </dd>
+                                </dl>
+                                <dl style="width: 210px; float: left;" class="unordered-list">
+                                    <dt><a href="http://dom.ria.ua/ru/Недвижимость/Продажа/Область/Киевская/Город/Украина/">
+                                        Продажа недвижимости</a></dt>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/Недвижимость/Продажа/Срочно/Область/Киевская/Город/Украина/"
+                                            title="Продажа Квартиры в Украине">Продажа <strong>ТОП</strong></a>
+                                    </dd>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/Каталог/Продажа/Квартиры/Область/Киевская/Город/Украина/"
+                                            title="Продажа Квартиры в Украине">Квартиры</a>
+                                    </dd>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/Каталог/Продажа/Дома/Область/Киевская/Город/Украина/"
+                                            title="Продажа Дома, дачи в Украине">Дома, дачи </a>
+                                    </dd>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/Каталог/Продажа/Офисы/Область/Киевская/Город/Украина/"
+                                            title="Продажа Офисы в Украине">Офисы</a>
+                                    </dd>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/Каталог/Продажа/Коммерческая/Область/Киевская/Город/Украина/"
+                                            title="Продажа Коммерческая недвижимость в Украине">Коммерческая недвижимость</a>
+                                    </dd>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/Каталог/Продажа/Участки/Область/Киевская/Город/Украина/"
+                                            title="Продажа Участки в Украине">Участки</a>
+                                    </dd>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/Каталог/Продажа/Гаражи/Область/Киевская/Город/Украина/"
+                                            title="Продажа Гаражи в Украине">Гаражи</a>
+                                    </dd>
+                                </dl>
+                                <dl style="width: 210px; float: left;" class="unordered-list">
+                                    <dt><a href="http://dom.ria.ua/ru/Недвижимость/Аренда-Помесячно/Область/Киевская/Город/Украина/">
+                                        Аренда недвижимости</a></dt>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/Недвижимость/Аренда-Помесячно/Срочно/Область/Киевская/Город/Украина/"
+                                            title="Аренда Квартиры в Украине">Аренда <strong>ТОП</strong></a>
+                                    </dd>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/Каталог/Аренда-Помесячно/Квартиры/Область/Киевская/Город/Украина/"
+                                            title="Аренда Квартиры в Украине">Квартиры</a>
+                                    </dd>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/Каталог/Аренда-Помесячно/Дома/Область/Киевская/Город/Украина/"
+                                            title="Аренда Дома, дачи в Украине">Дома, дачи </a>
+                                    </dd>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/Каталог/Аренда-Помесячно/Офисы/Область/Киевская/Город/Украина/"
+                                            title="Аренда Офисы в Украине">Офисы</a>
+                                    </dd>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/Каталог/Аренда-Помесячно/Коммерческая/Область/Киевская/Город/Украина/"
+                                            title="Аренда Коммерческая недвижимость в Украине">Коммерческая недвижимость</a>
+                                    </dd>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/Каталог/Аренда-Помесячно/Участки/Область/Киевская/Город/Украина/"
+                                            title="Аренда Участки в Украине">Участки</a>
+                                    </dd>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/Каталог/Аренда-Помесячно/Гаражи/Область/Киевская/Город/Украина/"
+                                            title="Аренда Гаражи в Украине">Гаражи</a>
+                                    </dd>
+                                </dl>
+                                <br />
+                                <dl style="width: 210px; float: left" class="unordered-list">
+                                    <dt><a onclick="sendResortGa('rent')" href="http://dom.ria.ua/ru/Недвижимость/Аренда-Посуточно/Область/Киевская/Город/Украина/">
+                                        Посуточная аренда</a></dt>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/Недвижимость/Аренда-Посуточно/Квартиры/Область/Киевская/Город/Украина/"
+                                            title="Квартиры">Квартиры</a>
+                                    </dd>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/Недвижимость/Аренда-Посуточно/Квартиры/Комнаты/Область/Киевская/Город/Украина/"
+                                            title="Комнаты">Комнаты</a>
+                                    </dd>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/Недвижимость/Аренда-Посуточно/Дома/Область/Киевская/Город/Украина/"
+                                            title="Дома">Дома </a>
+                                    </dd>
+                                </dl>
+                                <dl style="width: 210px; float: left" class="unordered-list">
+                                    <dt><a onclick="sendResortGa('living')" href="http://dom.ria.ua/ru/%D0%9A%D1%83%D1%80%D0%BE%D1%80%D1%82%D0%BD%D0%B0%D1%8F-%D0%BD%D0%B5%D0%B4%D0%B2%D0%B8%D0%B6%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C/">
+                                        Жилье в курортных зонах</a></dt>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/%D0%9A%D1%83%D1%80%D0%BE%D1%80%D1%82%D0%BD%D0%B0%D1%8F-%D0%BD%D0%B5%D0%B4%D0%B2%D0%B8%D0%B6%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C/%D0%9A%D0%B0%D1%80%D0%BF%D0%B0%D1%82%D1%8B/"
+                                            title="Карпаты">Карпаты</a>
+                                    </dd>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/%D0%9A%D1%83%D1%80%D0%BE%D1%80%D1%82%D0%BD%D0%B0%D1%8F-%D0%BD%D0%B5%D0%B4%D0%B2%D0%B8%D0%B6%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C/%D0%9A%D1%80%D1%8B%D0%BC/"
+                                            title="Крым">Крым </a>
+                                    </dd>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/%D0%9A%D1%83%D1%80%D0%BE%D1%80%D1%82%D0%BD%D0%B0%D1%8F-%D0%BD%D0%B5%D0%B4%D0%B2%D0%B8%D0%B6%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C/%D0%90%D0%B7%D0%BE%D0%B2/"
+                                            title="Азовское побережье">Азовское побережье</a>
+                                    </dd>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/%D0%9A%D1%83%D1%80%D0%BE%D1%80%D1%82%D0%BD%D0%B0%D1%8F-%D0%BD%D0%B5%D0%B4%D0%B2%D0%B8%D0%B6%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C/%D0%A7%D0%B5%D1%80%D0%BD%D0%BE%D0%BC%D0%BE%D1%80%D1%81%D0%BA%D0%BE%D0%B5-%D0%BF%D0%BE%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D1%8C%D0%B5/"
+                                            title="Черноморское побережье">Черноморское побережье</a>
+                                    </dd>
+                                    <dd>
+                                        <a href="http://dom.ria.ua/ru/%D0%9A%D1%83%D1%80%D0%BE%D1%80%D1%82%D0%BD%D0%B0%D1%8F-%D0%BD%D0%B5%D0%B4%D0%B2%D0%B8%D0%B6%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C/%D0%A8%D0%B0%D1%86%D0%BA%D0%B8%D0%B5-%D0%BE%D0%B7%D0%B5%D1%80%D0%B0/"
+                                            title="Шацкие озера">Шацкие озера</a>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="clr">
+                            </div>
+                        </div>
+                    </li>
+                    <li>@Html.ActionLink("Компании", "Index", "Home", new { @id = "lnkMenuCompany" })
+                        <div id="divCompanyMenu" class="floating-window " style="display: none; width: 500px">
+                            <div class="wrapper  shadow" style="width: 100%; display: inline-block; margin-top:-5px">
+                                <dl style="width: 210px; float: left" class="unordered-list">
+                                    <dt>Каталог</dt>
+                                    <dd>
+                                        @Html.ActionLink("Агентства недвижимости", "")</dd>
+                                    <dd>@Html.ActionLink("Риэлторы", "")</dd>
+                                    <dd>@Html.ActionLink("Банки", "")</dd>
+                                    <dd>@Html.ActionLink("Застройщики", "")</dd>
+                                    <dd>@Html.ActionLink("Коттеджные городки", "")</dd>
+                                    <dd>
+                                        @Html.ActionLink("Строительство. Ремонт. Интерьер.", "")
+                                    </dd>
+                                    <dd>
+                                        @Html.ActionLink("Партнеры", "")
+                                    </dd>
+                                    <dd>
+                                        @Html.ActionLink("Юристы", "")
+                                    </dd>
+                                    <dd>
+                                        @Html.ActionLink("Нотариусы", "")
+                                    </dd>
+                                </dl>
+                                <dl style="width: 210px; float: left" class="unordered-list">
+                                    <dt>Добавить</dt>
+                                    <dd>@Html.ActionLink("Добавить агентство", "#")</dd>
+                                    <dd>@Html.ActionLink("Добавить риэлтора", "#")</dd>
+                                    <dd>@Html.ActionLink("Добавить банк", "#")</dd>
+                                    <dd>@Html.ActionLink("Добавить застройщика", "#")</dd>
+                                    <dd>@Html.ActionLink("Добавить городок", "#")</dd>
+                                    <dd>@Html.ActionLink("Добавить компанию", "#")</dd>
+                                    <dd>@Html.ActionLink("Добавить юриста", "#")</dd>
+                                    <dd>@Html.ActionLink("Добавить нотариуса", "#")</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </li>
+                    @*<li>@Html.ActionLink("Продажа", "SearchByParams", "SearchBox")</li>*@ @*<li>@Html.ActionLink("Аренда", "SearchByParams", "SearchBox")</li>*@
+                    @*<li>@Html.ActionLink("Спрос", "Index", "Home")</li>*@ @*<li>@Html.ActionLink("Зарубеж", "Index", "Home")</li>*@
+                    <li>@Html.ActionLink("Новости", "Index", "News", new { @id = "lnkMenuNews" })
+                        <div id="divNewsMenu" class="floating-window " style="display: none; width: 500px; margin-top:-5px">
+                            <div class="wrapper  shadow" style="width: 100%; display: inline-block;">
+                                <dl style="width: 210px; float: left" class="unordered-list">
+                                    <dt>@Html.ActionLink("Все новости", "#")</dt>
+                                    <dd>
+                                        @Html.ActionLink("Недвижимость за рубежом", "")
+                                    </dd>
+                                    <dd>
+                                        @Html.ActionLink("Жилая недвижимость", "")
+                                    </dd>
+                                    <dd>
+                                        @Html.ActionLink("Коммерческая недвижимость", "")
+                                    </dd>
+                                    <dd>
+                                        @Html.ActionLink("Оценка недвижимости. Прогноз цен на недвижимость", "")
+                                    </dd>
+                                    <dd>
+                                        @Html.ActionLink("Инвестиции. Кредитование. Ипотека", "")
+                                    </dd>
+                                    <dd>
+                                        @Html.ActionLink("Аренда недвижимости", "")
+                                    </dd>
+                                    <dd>
+                                        @Html.ActionLink("Рынок земли", "")
+                                    </dd>
+                                </dl>
+                                <dl style="width: 210px; float: left" class="unordered-list">
+                                    <dd>@Html.ActionLink("Законодательство", "#")</dd>
+                                    <dd>@Html.ActionLink("Конкурсы", "#")</dd>
+                                    <dd>@Html.ActionLink("Новости коттеджных городков", "#")</dd>
+                                    <dd>@Html.ActionLink("Новости застройщиков", "#")</dd>
+                                    <dd>@Html.ActionLink("Нововведения на сайте", "#")</dd>
+                                    <dd>@Html.ActionLink("Конференция для агентств недвижимости", "#")</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </li>
+                    <li>@Html.ActionLink("Кабинет", "Index", "PrivateRoom")</li>
+                    @* <li>@Html.ActionLink("О компании", "About", "Home")</li>*@
+                    <li>@Html.ActionLink("Контакты", "Contact", "Home")</li>
+                    <li>
+                        <div style="width: 190px; float: right">
+                            <div class="input-append" style="width: 100px; float: right">
+                                @using (Html.BeginForm("ObjectDetails", "SearchResult", FormMethod.Get))
+                                {
+                                    <input class="span8" id="Id" name="Id" style="width: 100px; height: 19px" type="text"
+                                        placeholder="Поиск по ID" />
+                                    <button class="btn" type="submit">
+                                        Найти по ID</button>
+                                }
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="body" style="display: block; clear: both">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        <footer>
+        @Html.Action("QuickSearchBox", "SearchBox")
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
+                </div>
+            </div>
+        </footer>
+        @* @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)*@
+        @Content.Script("jquery-1.7.1.min.js", Url)
+        @Content.Script("bootstrap/js/bootstrap.js", Url)
+        @Content.Script("jquery.unobtrusive-ajax.min.js", Url)
+        @Content.Script("jquery-ui-1.10.1.custom/development-bundle/ui/minified/jquery.ui.core.min.js", Url)
+        @Content.Script("jquery-ui-1.10.1.custom/development-bundle/ui/minified/jquery.ui.widget.min.js", Url)
+        @Content.Script("jquery-ui-1.10.1.custom/development-bundle/ui/minified/jquery.ui.tabs.min.js", Url)
+        @Content.Script("jquery-ui-1.10.1.custom/development-bundle/ui/jquery.ui.mouse.js", Url)
+        @Content.Script("jquery-ui-1.10.1.custom/development-bundle/ui/jquery.ui.dialog.js", Url)
+        @Content.Script("jquery-ui-1.10.1.custom/development-bundle/ui/jquery.ui.draggable.js", Url)
+        @Content.Script("jquery-ui-1.10.1.custom/development-bundle/ui/jquery.ui.position.js", Url)
+        @Content.Script("jquery-ui-1.10.1.custom/development-bundle/ui/jquery.ui.resizable.js", Url)
+        @Content.Script("jquery-ui-1.10.1.custom/development-bundle/ui/jquery.ui.button.js", Url)
+        @Content.Script("main.js", Url)
+        @RenderSection("scripts", required: false)
+    </div>
+    <div id="advancedSearchDialog" title="Расширенный поиск">
+        <div id="advancedSearchContent">
+        </div>
+    </div>
+</body>
+</html>

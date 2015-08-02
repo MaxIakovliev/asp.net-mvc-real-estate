@@ -1,0 +1,28 @@
+﻿@model IEnumerable<RealtyDomainObjects.PropertyType>
+@{
+    ViewBag.Title = "Добавление нового объявления";
+    ViewBag.Test = "test";
+}
+<h2>
+@if (ViewBag.propertyType == null)
+{
+    @Html.Raw("новое объявление")
+}
+else
+{
+    @Html.Raw("редактирование объявления")
+}
+    
+    </h2>
+@*@using (Html.BeginForm("SaveObject","PropertyManipulation",FormMethod.Post))
+{*@
+    
+    @Html.Partial("SearchBoxForAdd", Model)
+
+    <div id="formContainer">
+    </div>
+
+@*}*@
+@section scripts{
+    @Content.Script("cascade_DDLsNewAd.js", Url)
+}

@@ -1,0 +1,15 @@
+﻿@model RealtyDomainObjects.PropertyObject
+
+@{
+    ViewBag.Title = "PreviewAndAddImages";
+}
+
+<h2>PreviewAndAddImages</h2>
+
+
+@using (Html.BeginForm("UploadImage", "PropertyManipulation", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <input type="file" name="file" accept="image/jpeg"/>
+    <input type="submit" value="Добавить"  class="btn  btn-info"/>
+}

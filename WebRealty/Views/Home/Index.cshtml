@@ -1,0 +1,34 @@
+﻿@model IEnumerable<RealtyDomainObjects.PropertyType>
+@{
+    ViewBag.Title = @"ФОТО Недвижимость - бесплатные объявления. Продажа, долгосрочная аренда, аренда посуточно, квартир, домов,
+        офисов в Киеве и других городах Украины.";
+}
+
+<table>
+    <tbody>
+        <tr>
+            <td class="column-left">
+                <b>
+                    Поиск объявлений</b>
+                @*<div class="search-ads-total">
+                    всего 241618 объявлений</div>*@
+                @*@Html.Action("PopulateSearchBox", "SearchBox", Request.QueryString)*@
+                @Html.Action("PartiallyIndex", "SearchBox")
+            </td>
+            
+            <td class="column-middle">
+            @Html.Action("LastAddedObjects", "SearchResult")
+            </td>
+            <td class="column-right">
+            @Html.Action("LastNews", "News")
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+@section scripts{
+@Content.Script("cascadeSB_DDLs.js", Url)
+}

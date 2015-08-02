@@ -1,0 +1,16 @@
+﻿@if(Request.IsAuthenticated) {
+    <text>Welcome <strong>@User.Identity.Name</strong>!
+    [ @Html.ActionLink("Выйти", "LogOff", "Account") ]</text>
+}
+else {
+    @*@:[ @Html.ActionLink("Войти в личный кабинет", "LogOn", "Account") ]*@
+    <div style="position:static">
+    <div style="float:right">
+    @using (Html.BeginForm("LogOn", "Account", FormMethod.Get))
+    {
+                 @*      <input type="submit" value="Войти в Личный кабинет" class="btn  btn-success", style="margin-bottom:5px;" />*@
+    }
+    </div>
+    </div>
+    <div class="clear"></div>
+}

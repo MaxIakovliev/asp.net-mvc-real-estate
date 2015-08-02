@@ -1,0 +1,88 @@
+﻿@model WebRealty.Models.AgencyModel
+@{
+    ViewBag.Title = "Агенства недвижимости";
+}
+@foreach (var agency in Model.Agencies)
+{
+    
+    <div class="box-round">
+        <div class=" pad-10">
+            <div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td style="vertical-align: top; padding-left: 10px; width: 100%;">
+                                <div class="itemsAnWrap">
+                                    <div class="box-round">
+                                        <div class="box-wrapper pad-10">
+                                            <div>
+                                                <table class="tableAnInfo">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="vertical-align: top; padding-left: 10px; width: 100%;">
+                                                                <div style="display: inline-block; float: left; padding-right: 15px">
+                                                                    <a href="http://dom.ria.ua/ru/agency-20446.html">
+                                                                        <img src="http://cdn.img.ria.ua/photos/dom/agence/2/204/20446/20446b.jpg?v=1344512485"
+                                                                            width="150" height="100" align="right" border="0" title="Агентство недвижимости -  ОЛИМП"
+                                                                            alt="Агентство недвижимости -  ОЛИМП">
+                                                                    </a>
+                                                                </div>
+                                                                <div class="float-l" style="width: 440px;">
+                                                                    <div style="padding-bottom: 7px; margin-bottom: 7px; border-bottom: 1px solid #f19312">
+                                                                        <div class="nameAn">
+                                                                            ОЛИМП</div>
+                                                                        <div class="cityNameAn">
+                                                                            г.Винница</div>
+                                                                    </div>
+                                                                    <div class="contact-phone">
+                                                                        <span class="telAkIco">(0432) 67-10-88</span> <span class="telAkIco">(0432) 67-10-86</span>
+                                                                    </div>
+                                                                    <div class="contact-email">
+                                                                        <a style="color: #B54C00; margin: 0" target="_blank" href="http://dom.ria.ua/send_user/id/2266628/"
+                                                                            title="Обратиться в агентство" class="icons-x12b email_me js_send_user_message"
+                                                                            onclick="return false;" user_id="2266628" form_title="Обратиться в агентство">Обратиться
+                                                                            в агентство</a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="vertical-align: top; padding: 0 5px;">
+                                                                <div class="statBar">
+                                                                <p>
+                                                                   @agency.AboutBrief
+                                                                 </p>
+                                                                    <br>
+                                                                    <b>Центральний офис</b> - Винница<br/>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2">
+                                                                <div class="statBar">
+                                                                    <span style="color: #919294"><span style="padding-right: 15px;">Всего предложений <strong>
+                                                                        <a href="http://dom.ria.ua/ru/agency-20446.html?tab=adverts" title="" style="color: #919294">
+                                                                            771</a></strong></span> <span>Сотрудников <strong><a href="http://dom.ria.ua/ru/agency-20446.html?tab=agents"
+                                                                                title="" style="color: #919294">61</a></strong></span></span>
+                                                                    <div class="float-r">
+                                                                        <a href="http://dom.ria.ua/ru/agency-20446.html" class="showAllLink js_hint" hint_page="agency_index"
+                                                                            hint_text="Переход к просмотру детальной информации об агентстве, его недвижимости, сотрудниках"
+                                                                            title="Подробно">Подробно </a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}

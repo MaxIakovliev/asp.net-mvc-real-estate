@@ -1,0 +1,56 @@
+﻿@if (ViewBag.membershipId == null)
+{
+    <div class="alert alert-info">
+        <h3>
+            Обратите внимание!</h3>
+        <p>
+            На фотографии должен быть изображен податель объявлений.</p>
+        <p>
+            Фотография должна быть "портретной" ориентации (размер по вертикали больше чем по
+            горизонтали)</p>
+    </div>
+        
+    using (Html.BeginForm("SaveUserPhoto", "PrivateRoom", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {        
+    @Html.Label("Подпись ")
+    @Html.Editor("title")<br />
+    <input type="file" name="file" accept="image/jpeg" />
+    <input type="submit" value="Добавить" />
+    }
+}
+else
+{
+    <div class="alert alert-info">
+        <h3>
+            Фото профиля</h3>
+        <p>
+            Будет отображаться на странице просмотра объявлений.</p>
+    </div>
+    
+    
+    
+    int membershipId = Convert.ToInt32(ViewBag.membershipId);    
+    <p align="center" id="uploaded-photo">
+        <img src="@Url.Action("getImg", "PrivateRoom", new { id = membershipId })"  alt="Моё фото" />
+        @Html.Display("title")
+    </p>
+    
+    <p align="center">
+        @using (Html.BeginForm("DeleteUserPhoto", "PrivateRoom", FormMethod.Post, new
+        {
+            enctype
+                = "multipart/form-data"
+        }))
+        {
+            <input type="submit" value="Удалить" />
+        }
+        @Html.Raw("&nbsp;")
+        @* @using (Html.BeginForm("SaveUserPhoto", "PrivateRoom", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.Label("Подпись ")
+            @Html.Editor("title")<br />
+            <input type="file" name="file" accept="image/jpeg" />
+            <input type="submit" value="Сменить подпись/фото" />
+        }*@
+    </p>
+}

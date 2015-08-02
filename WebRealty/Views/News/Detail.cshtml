@@ -1,0 +1,26 @@
+﻿@model RealtyDomainObjects.News
+
+@{
+    ViewBag.Title = "Detail";
+}
+
+<h2>Новости недвижимости</h2>
+
+<fieldset>
+    <legend>News</legend>
+
+    
+    <div class="display-field">
+        <h3>@Html.DisplayFor(model => model.Title)</h3>
+    </div>
+
+   
+    <div class="display-field">
+      <p>  @Html.DisplayFor(model => model.Content)</p>
+    </div>
+
+    
+    <div class="display-field">
+    <small>  @Html.DisplayFor(model => model.PrintTime)</small>
+    </div>
+</fieldset>

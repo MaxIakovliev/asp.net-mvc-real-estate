@@ -1,0 +1,336 @@
+﻿@model WebRealty.Models.PropertyPreview
+@{
+    ViewBag.Title = "UploadImage";
+    var landCommunications = ViewBag.landCommunication as List<RealtyDomainObjects.LandCommunication>;
+    var landFunction = ViewBag.landFunction as List<RealtyDomainObjects.LandFunction>;
+}
+<table>
+    <tr>
+        <td style="width: 200px">
+            @Html.LabelFor(model => model.PropertObject.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.PropertObject.Title)
+        </td>
+    </tr>
+    <!--property description-->
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.PropertObject.PropertyDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.PropertObject.PropertyDescription)
+        </td>
+    </tr>
+    @if (@Model.PropertObject.RoomCount > 0)
+    {
+        <!--room count-->
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.PropertObject.RoomCount)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.PropertObject.RoomCount)
+            </td>
+        </tr>
+    }
+    @if (@Model.PropertObject != null && @Model.PropertObject.CommercialPropertyType != null)
+    {
+        <!--CommercialPropertyType-->
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.PropertObject.CommercialPropertyType)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.PropertObject.CommercialPropertyType.CommercialPropertyTypeName)
+            </td>
+        </tr>
+    }
+    @if (@Model.PropertObject.TotalSpace > 0 || @Model.PropertObject.LivingSpace > 0 || @Model.PropertObject.KitchenSpace > 0)
+    {
+        <!--площадь-->
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.PropertObject.TotalSpace)
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.PropertObject.TotalSpace)
+                        </td>
+                        @if (@Model.PropertObject.LivingSpace > 0)
+                        {    
+                            <td>
+                                @Html.LabelFor(model => model.PropertObject.LivingSpace)
+                            </td>
+                
+                            <td>
+                                @Html.DisplayFor(model => model.PropertObject.LivingSpace)
+                            </td>
+                        }
+                        @if (@Model.PropertObject.KitchenSpace > 0)
+                        {
+                            <td>
+                                @Html.LabelFor(model => model.PropertObject.KitchenSpace)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(model => model.PropertObject.KitchenSpace)
+                            </td>
+                        }
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    }
+    @if (@Model.PropertObject.BuildingTypeName != null || @Model.PropertObject.Floor > 0 || @Model.PropertObject.CountFloors > 0)
+    {
+        <!--Тип дома этаж-->
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.PropertObject.BuildingTypeName)
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        @if (@Model.PropertObject.BuildingTypeName != null)
+                        {
+                            <td>
+                                @Html.DisplayFor(model => model.PropertObject.BuildingTypeName.BuildingTypeName)
+                            </td>
+                        }
+                        @if (@Model.PropertObject.Floor > 0)
+                        {
+                            <td>
+                                @Html.LabelFor(model => model.PropertObject.Floor)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(model => model.PropertObject.Floor)
+                            </td>
+                        }
+                        @if (@Model.PropertObject.CountFloors > 0)
+                        {
+                            <td>
+                                @Html.LabelFor(model => model.PropertObject.CountFloors)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(model => model.PropertObject.CountFloors)
+                            </td>
+                        }
+                        <td>
+                            @if (@Model.PropertObject.IsNewBuilding == true)
+                            {
+                                @Html.Raw("Новострой")   
+                            }
+                            &nbsp;
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    }
+    @if (!string.IsNullOrEmpty(@Model.PropertObject.DistanceToCity))
+    {
+        <tr>
+            <td>@Html.LabelFor(model => model.PropertObject.DistanceToCity)
+            </td>
+            <td>@Html.DisplayFor(model => model.PropertObject.DistanceToCity) @Html.Raw("км.")
+            </td>
+        </tr>
+    }
+    
+    @if (@landCommunications != null && landCommunications.Count > 0)
+    {
+        <tr>
+            <td>@Html.LabelFor(v => landCommunications[0].LandCommunicationsName)
+            </td>
+            <td>
+                <ul>
+                    @foreach (var item in @landCommunications)
+                    {
+            
+                        <li>
+                            @Html.DisplayFor(v => item.LandCommunicationsName)
+                        </li>
+                    }
+                </ul>
+            </td>
+        </tr>
+    }
+    
+    @if (@landFunction != null && landFunction.Count > 0)
+    {
+        <tr>
+            <td>@Html.LabelFor(v => landFunction[0].LandFunctionName)
+            </td>
+            <td>
+                <ul>
+                    @foreach (var item in @landFunction)
+                    {
+            
+                        <li>
+                            @Html.DisplayFor(v => item.LandFunctionName)
+                        </li>
+                    }
+                </ul>
+            </td>
+        </tr>
+    }
+    
+    @if (@Model.PropertObject.WCType != null)
+    {
+        <!--санузел-->
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.PropertObject.WCType)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.PropertObject.WCType.WCTypeName)
+            </td>
+        </tr>
+    }
+    <!--цена-->
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.PropertObject.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.PropertObject.Price)&nbsp;@Html.DisplayFor(model => model.PropertObject.Currency.CurrencyTypeName)&nbsp;@Html.DisplayFor(model => model.PropertObject.PriceForTypeName.PriveForTypeName)&nbsp;
+            @if (@Model.PropertObject.PriceForTypeName != null)
+            {
+                @Html.DisplayFor(model => model.PropertObject.PriceForTypeName.PriveForTypeName)
+                @Html.Raw("&nbsp;")
+            }
+            @if (@Model.PropertObject.Periods != null)
+            {
+                @Html.DisplayFor(model => model.PropertObject.Periods.PeriodName)
+                @Html.Raw("&nbsp;")
+            }
+            @if (@Model.PropertObject.NoCommission)
+            {
+                //@Html.Raw("Без комиссии")
+                @Html.LabelFor(model => model.PropertObject.NoCommission)
+            }
+        </td>
+    </tr>
+    @if (!string.IsNullOrEmpty(@Model.PropertObject.Phone1))
+    {
+        <!--phoone 1-->
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.PropertObject.Phone1)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.PropertObject.Phone1)
+            </td>
+        </tr>
+    }
+    @if (!string.IsNullOrEmpty(@Model.PropertObject.Phone2))
+    {
+        <!--phoone 2-->
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.PropertObject.Phone2)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.PropertObject.Phone2)
+            </td>
+        </tr>
+    }
+    @if (!string.IsNullOrEmpty(@Model.PropertObject.Phone3))
+    {
+        <!--phoone 3-->
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.PropertObject.Phone3)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.PropertObject.Phone3)
+            </td>
+        </tr>
+    }
+    @if (!string.IsNullOrEmpty(@Model.PropertObject.SourceUrl))
+    {
+        <!--site-->
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.PropertObject.SourceUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.PropertObject.SourceUrl)
+            </td>
+        </tr>
+    }
+    <!--name-->
+    @if (!string.IsNullOrEmpty(@Model.PropertObject.ContactName))
+    {
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.PropertObject.ContactName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.PropertObject.ContactName)
+            </td>
+        </tr>
+    }
+</table>
+<hr />
+@{
+    if (Model.ImgPreviewIds == null)
+    {
+    <h2>
+        Добавьте фотографии объекта</h2>
+    }
+    else
+    {
+    <table>
+        <tr>
+            <th>
+            </th>
+        </tr>
+        @foreach (var item in Model.ImgPreviewIds)
+        {
+            <tr>
+                <td>
+                    <div>
+                        <table>
+                            <tr>
+                                <td>
+                                    <img src="@Url.Action("getImg", "PropertyManipulation", new { id = item })"  alt="Preview Image" />
+                                </td>
+                                <td>
+                                    @using (Html.BeginForm("DeleteImage", "PropertyManipulation", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        
+                                        @Html.Hidden("imgId", item)
+                                        @Html.Hidden("objId", Model.PropertObject.Id)
+                                        <input type="submit" value="Удалить" class="btn btn-danger" />
+                                    }
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+    }
+}
+@using (Html.BeginForm("UploadImage", "PropertyManipulation", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()    
+    @Html.Hidden("objId", @Model.PropertObject.Id)
+    <input type="file" name="file" />
+    <input type="submit" value="Добавить" class="btn  btn-info"/>
+}
+<hr />
+@using (Html.BeginForm("PreviewAd", "PropertyManipulation", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()    
+    @Html.Hidden("objId", @Model.PropertObject.Id)
+    <input type="submit" value="Дальше &rarr;" class="btn  btn-info"/>
+}

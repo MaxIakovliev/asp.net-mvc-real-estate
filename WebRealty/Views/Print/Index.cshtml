@@ -1,0 +1,72 @@
+﻿@model RealtyDomainObjects.PropertyObject
+@{
+    ViewBag.Title = "Печать объявления";
+    Layout = "~/Views/Shared/_EmptyLayout.cshtml";
+}
+<script type="text/javascript">
+		<!--
+    function PrintPage() {
+        if (window.print) {
+            if (confirm("Распечатать эту страницу?")) {
+                window.print();
+                document.getElementById('print').style.display = 'none';
+            }
+        }
+    }
+		//-->
+</script>
+
+<p>
+<a  id="print" style="display: block; text-decoration: none;" href="#" onclick="PrintPage()">
+    <img src="~/Content/siteImgs/print.png" />Печать страницы</a>
+</p>
+
+<p>
+    @Model.PropertyType.PropertyTypeName &raquo;
+    @if (@Model.ServiceType != null)
+    {
+        @Model.ServiceType.ServiceTypeName
+    }
+    @if (@Model.PropertyAction != null)
+    {
+        @Model.PropertyAction.PropertyActionName @Html.Raw("&raquo;")
+    }
+    @if (@Model.City != null)
+    {
+        @Model.City.CityName @Html.Raw("&raquo;")
+    }
+    @if (@Model.CityDistrict != null)
+    {
+        @Model.CityDistrict.District
+    }
+</p>
+<h1>
+    @Model.Title
+</h1>
+<p>
+    @Model.PropertyDescription
+</p>
+<p>
+    Тел.: <b>@Model.Phone1 &nbsp;
+        @if (!string.IsNullOrEmpty(@Model.Phone2))
+        {
+            @Model.Phone2 @Html.Raw(",&nbsp;")
+        }
+        @if (!string.IsNullOrEmpty(@Model.Phone3))
+        {
+            @Model.Phone3 @Html.Raw("&nbsp;")
+        }
+    </b>
+</p>
+<p>
+    Цена: <b>@Model.Price &nbsp; @Model.Currency.CurrencyTypeName</b>
+</p>
+<p>
+    Подано: <b>@Model.CreatedDate</b>
+</p>
+<p>
+    ID: <b>@Model.Id</b>
+</p>
+<p>
+    URL на сайте:- будет добавлен позже
+</p>

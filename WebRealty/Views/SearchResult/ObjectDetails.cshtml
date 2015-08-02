@@ -1,0 +1,404 @@
+﻿@model WebRealty.Models.DetailedObject
+@{
+    //ViewBag.Title = "ObjectDetails";
+    ViewBag.Title = Model.PropertyObject.Title;
+    List<int> imgIds = ViewBag.imgIds as List<int>;
+}
+@{
+    int membershipId = -1;
+    if (Request.IsAuthenticated)
+    {
+        //if(WebRealty.Common.Auth.IsAuthenticated(Request,User, out membershipId)){
+        MembershipUser currentUser = Membership.GetUser(User.Identity.Name);
+        if (currentUser != null && currentUser.ProviderUserKey != null && int.TryParse(currentUser.ProviderUserKey.ToString(), out membershipId))
+        {
+
+            //if (membershipId == Model.PropertyObject.UserOwner.Id && ViewBag.IsJustAdded != null)
+            if (Model.PropertyObject.UserOwner != null && membershipId == Model.PropertyObject.UserOwner.Id)
+            {
+    <div id="mmm" style="margin: 5px 0; width: 100%; padding: 5px; background-color: #FEE;
+        border: 1px solid red; font-size: 13px; color: #555">
+        <p>
+            @Html.ActionLink("Подать еще одно обьявление", "NewAd", "ad")
+            &nbsp;
+            @Html.ActionLink("Кабинет", "Index", "PrivateRoom")
+        </p>
+    </div> 
+            }
+        }
+
+    }
+
+}
+<table style="width: 100%">
+    <tbody>
+        <tr>
+            <td valign="top" style="width: 50%">
+                @{
+                    
+                    if (imgIds != null && imgIds.Count() > 0)
+                    {
+                    <img src="@Url.Action("getOriginalImg", "PropertyManipulation", new { id = imgIds[0] })"  alt="Preview Image" />
+                    }
+                }
+            </td>
+            <td style="width: 50%; vertical-align:top;">
+                @if (@Model.PropertyObject.ServiceType != null)
+                {
+                    @Model.PropertyObject.ServiceType.ServiceTypeName 
+                    <hr />
+                }
+                @if (@Model.PropertyObject.City != null)
+                {
+                    @Model.PropertyObject.City.CityName  @Html.Raw("&raquo; &raquo;")
+                }
+                @if (@Model.PropertyObject.CityDistrict != null)
+                {
+                    @Model.PropertyObject.CityDistrict.District
+                    <hr />
+                }
+                <h3>
+                    @Model.PropertyObject.Title
+                </h3>
+                <p>
+                    @Model.PropertyObject.PropertyDescription
+                </p>
+                <div class="ad-contacts">
+                    @if (@Model.PropertyObject.CommercialPropertyType != null)
+                    {
+                        <p>
+                            @Html.LabelFor(model => model.PropertyObject.CommercialPropertyType)
+                            @Html.Raw(":&nbsp;")
+                            <b>
+                                @Html.DisplayFor(model => model.PropertyObject.CommercialPropertyType.CommercialPropertyTypeName)</b>
+                        </p>
+                    }
+                    @if (Model.PropertyObject.PropertyType.Id == 2)
+                    {
+                        if (@Model.PropertyObject.TotalSpace != null && @Model.PropertyObject.TotalSpace > 0.0)
+                        {
+                        <p>
+                            <label>
+                                Площадь дома:</label>@Html.Raw("&nbsp;") <b>@Model.PropertyObject.TotalSpace</b>@Html.Raw("&nbsp;кв.м.")
+                        </p>
+                        }
+
+                        if (@Model.PropertyObject.LivingSpace != null && @Model.PropertyObject.LivingSpace > 0.0)
+                        {
+                        <p>
+                            <label>
+                                Площадь участка:</label>@Html.Raw("&nbsp;") <b>@Model.PropertyObject.LivingSpace</b>@Html.Raw("&nbsp;соток")
+                        </p>
+                        }
+
+                        if (@Model.PropertyObject.CountFloors != null && @Model.PropertyObject.CountFloors > 0)
+                        {
+                        <p>
+                            <label>
+                                Этажность:</label>@Html.Raw("&nbsp;") <b>@Model.PropertyObject.CountFloors</b>
+                        </p>
+                        }
+
+                        if (@Model.PropertyObject.DistanceToCity >0.0)
+                        {
+                        <p>
+                            <label>@Html.LabelFor(model => model.PropertyObject.DistanceToCity)</label>@Html.Raw("&nbsp;")
+                            <b>@Model.PropertyObject.DistanceToCity</b>@Html.Raw("&nbsp;км.")
+                        </p>
+                        }
+                    }
+                    else if (Model.PropertyObject.PropertyType.Id == 3)//земельные участки
+                    {
+                        var landCommunicationToObj = ViewBag.landCommunicationToObj as List<RealtyDomainObjects.LandCommunicationToObj>;
+                        if (landCommunicationToObj != null)
+                        {
+                        <p>
+                            Коммуникации:
+                            <ul>
+                                @foreach (var comToObj in landCommunicationToObj)
+                                {
+                                    <li>
+                                        @comToObj.LandCommunicationId.LandCommunicationsName
+                                    </li>
+                                }
+                            </ul>
+                        </p>
+                        }
+
+                        var landFunctionToObj = ViewBag.landFunctionToObj as List<RealtyDomainObjects.LandFunctionToObj>;
+                        if (landFunctionToObj != null)
+                        {
+                        <p>
+                            Назначение:
+                            <ul>
+                                @foreach (var landToObj in landFunctionToObj)
+                                {
+                                    <li>
+                                        @landToObj.LandFunctionId.LandFunctionName
+                                    </li>
+                                }
+                            </ul>
+                        </p>
+                        
+                        }
+                    }
+                    @if (Model.PropertyObject.RoomCount > 0)//show room count
+                    {
+                        <p>
+                            @Html.LabelFor(model => model.PropertyObject.RoomCount) &nbsp;<b>@Model.PropertyObject.RoomCount
+                            </b>
+                        </p>
+                    }
+                    @if (Model.PropertyObject.LivingSpace != null && Model.PropertyObject.LivingSpace > 0.0)//show LivingSpace
+                    {
+                        <p>
+                            @Html.LabelFor(model => model.PropertyObject.LivingSpace) &nbsp;<b>@Model.PropertyObject.LivingSpace
+                                кв.м.</b>
+                        </p>
+                    }
+                    @if (Model.PropertyObject.KitchenSpace != null && Model.PropertyObject.KitchenSpace > 0.0)//show KitchenSpace
+                    {
+                        <p>
+                            @Html.LabelFor(model => model.PropertyObject.KitchenSpace) &nbsp;<b>@Model.PropertyObject.KitchenSpace
+                                кв.м.</b>
+                        </p>
+                    }
+                    @if (Model.PropertyObject.BuildingTypeName != null && !string.IsNullOrEmpty(Model.PropertyObject.BuildingTypeName.BuildingTypeName))
+                    {
+                        <p>
+                            @Html.LabelFor(model => model.PropertyObject.BuildingTypeName)
+                            <b>@Model.PropertyObject.BuildingTypeName.BuildingTypeName</b>
+                        </p>
+                    }
+                    @if (Model.PropertyObject.Floor != null && Model.PropertyObject.Floor > 0)
+                    {
+                        <p>
+                            @Html.LabelFor(model => model.PropertyObject.Floor)
+                            <b>@Model.PropertyObject.Floor</b>
+                        </p>
+                    }
+                    @if (Model.PropertyObject.CountFloors != null && Model.PropertyObject.CountFloors > 0)
+                    {
+                        <p>
+                            @Html.LabelFor(model => model.PropertyObject.CountFloors)
+                            <b>@Model.PropertyObject.CountFloors</b>
+                        </p>
+                    }
+                    @if (Model.PropertyObject.WCType != null && !string.IsNullOrEmpty(Model.PropertyObject.WCType.WCTypeName))//show WCType
+                    {
+                        <p>
+                            @Html.LabelFor(model => model.PropertyObject.WCType)
+                            <b>@Model.PropertyObject.WCType.WCTypeName</b>
+                        </p>
+                    }
+                    @if (Model.PropertyObject.BalconAvailable)// show Balcon
+                    {
+                        <p>
+                            @Html.LabelFor(model => model.PropertyObject.BalconSpace)
+                            <b>@Model.PropertyObject.BalconSpace
+                                кв.м.
+                                @if (Model.PropertyObject.isBalconGlassed)
+                                {
+                                    @Html.Raw("| Затеклен")
+                                }
+                            </b>
+                        </p>
+                    }
+                </div>
+                <p class="ad-price">
+                    @Html.LabelFor(model => model.PropertyObject.Price)
+                    <b><span style="color: Red">
+                        @if (@Model.PropertyObject.Price > 0)
+                        {
+                        @Model.PropertyObject.Price
+                         @Html.Raw("&nbsp;")
+                        @Model.PropertyObject.Currency.CurrencyTypeName
+                         @Html.Raw("&nbsp;")
+                        }
+                        else
+                        {
+                         @Html.Raw("договорная")                        
+                        }
+                        @if (@Model.PropertyObject.PriceForTypeName != null)
+                        {
+                            @Model.PropertyObject.PriceForTypeName.PriveForTypeName
+                        }
+                        else if (@Model.PropertyObject.Periods != null)
+                        {
+                            @Model.PropertyObject.Periods.PeriodName
+                        }
+                    </span>
+                        @if (@Model.PropertyObject.NoCommission)
+                        {
+                            @Html.Raw("(Без комиссии )")
+                        }
+                    </b>
+                </p>
+                <p>
+                 <button class="btn" type="submit" id="btnShowPhone" data-controler = "searchResult", data-action = "GetPhones",>Показать телефон(ы)</button>
+                 <span id="phone1"></span>
+                 <span id="phone2"></span>
+                 <span id="phone3"></span>
+                </p>
+                <p>
+                    @Html.LabelFor(model => model.PropertyObject.ContactName)&nbsp; <b>@Model.PropertyObject.ContactName</b>
+                </p>
+                <div class="ad-pub-date">
+                    <p>
+                        Подано:<b> @Model.PropertyObject.CreatedDate </b>
+                    </p>
+                    @if (!string.IsNullOrEmpty(Model.PropertyObject.SourceUrl))
+                    {
+                        <p>
+                            @Html.LabelFor(model => model.PropertyObject.SourceUrl)
+                            <b>@Model.PropertyObject.SourceUrl </b>
+                        </p>
+                    }
+                    <p>
+                        ID: <b>@Model.PropertyObject.Id </b>
+                    </p>
+                    <p>
+                        Всего просмотров: <b>@Model.stats.totalView</b>
+                    </p>
+                    <p>
+                        Сегодня просмотров: <b>@Model.stats.todayView</b>
+                    </p>
+                </div>
+
+
+                <div class="ad-path">
+                <p>
+                <b>
+                    @Model.PropertyObject.PropertyType.PropertyTypeName &raquo;
+                    @if (@Model.PropertyObject.ServiceType != null)
+                    {
+                        @Model.PropertyObject.ServiceType.ServiceTypeName
+                    }
+                    @if (@Model.PropertyObject.PropertyAction != null)
+                    {
+                        @Model.PropertyObject.PropertyAction.PropertyActionName @Html.Raw("&raquo;")
+                    }
+                    @if (@Model.PropertyObject.City != null)
+                    {
+                        @Model.PropertyObject.City.CityName @Html.Raw("&raquo;")
+                    }
+                    @if (@Model.PropertyObject.CityDistrict != null)
+                    {
+                        @Model.PropertyObject.CityDistrict.District
+                    }
+                 </b>  
+                </p>
+                </div>
+                @if (ViewBag.userImg == null)
+                {
+                    <table>
+                        <tr>
+                            <td>
+                                <a href='@Url.Action("Index", "Print", new { id = Model.PropertyObject.Id })'>
+                                    <img src="~/Content/siteImgs/printer_48.png" title="Перейти на страницу печати" />&nbsp;
+                                    Перейти на страницу печати</a>
+                            </td>
+                            <td>
+                                @if (ViewBag.membershipId != null)
+                                {
+                                    membershipId = Convert.ToInt32(ViewBag.membershipId);    
+                                    <p align="center" id="uploaded-photo">
+                                        <img src="@Url.Action("getImg", "PrivateRoom", new { id = membershipId })"  alt="фото вледельца объявления" />
+                                        @if (ViewBag.title != null)
+                                        {
+                                            string UserOwner = ViewBag.UserOwner as string;
+                                            <text>@UserOwner</text>
+                                        }
+                                    </p>
+                                }
+@*<img src="~/Content/siteImgs/paper_content_pencil_48.png" title="Сохранить в блокнот" />&nbsp;
+                                Сохранить в блокнот*@
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="~/Content/siteImgs/001_19.png" title="Пожаловаться на объявление" />&nbsp;
+                                Пожаловаться на объявление
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                    </table>                
+                }
+                else
+                {
+                    <table>
+                        <tr>
+                            <td style="width: auto">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <img src="~/Content/siteImgs/printer_48.png" title="Перейти на страницу печати" />&nbsp;
+                                            <small>Перейти на страницу печати</small>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="~/Content/siteImgs/paper_content_pencil_48.png" title="Сохранить в блокнот" />&nbsp;
+                                            <small>Сохранить в блокнот</small>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="~/Content/siteImgs/001_19.png" title="Пожаловаться на объявление" />&nbsp;
+                                            <small>Пожаловаться на объявление</small>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td>
+                                <p align="center" id="uploaded-photo">
+                                    <img src="@Url.Action("getImg", "PrivateRoom", new { id = Model.PropertyObject.UserOwner.Id })"  alt="Автор" />
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div id="ad-thumbs">
+    <p class="advice">
+        Нажмите на миниатюру, чтобы посмотреть увеличенное изображение ...</p>
+    <ul>
+        @{
+            if (imgIds != null)
+            {
+                bool cssIsSet = false;
+                foreach (int i in imgIds)
+                {
+                    if (!cssIsSet)
+                    {
+                        cssIsSet = true;
+                     
+            <li style="clear: left"><a href="@Url.Action("getOriginalImg", "PropertyManipulation", new { id = i })" class="highslide">
+                <img src="@Url.Action("getImg", "PropertyManipulation", new { id = i })"  alt="Preview Image" />
+            </a></li>
+                    }
+                    else
+                    {
+            <li><a href="@Url.Action("getOriginalImg", "PropertyManipulation", new { id = i })" class="highslide">
+                <img src="@Url.Action("getImg", "PropertyManipulation", new { id = i })"  alt="Preview Image" />
+            </a></li>
+                    }
+                }
+            }
+        }
+    </ul>
+    <div class="clear">
+    </div>
+</div>
+@Html.HiddenFor(m=>m.PropertyObject.Id,new {@id="PropertyObjectId"})
+<link href="~/Content/highslide/highslide.css" rel="stylesheet" type="text/css" />
+@section scripts{
+    @Content.Script("_ShowPhone.js", Url)
+    @Content.Script("highslide/highslide.min.js", Url)
+    @Content.Script("highslide/highslide-routine.js", Url)
+}

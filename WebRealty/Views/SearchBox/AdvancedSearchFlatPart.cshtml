@@ -1,0 +1,42 @@
+﻿@{
+    SelectList buildingType = ViewBag.buildingType as SelectList;
+    SelectList wcType = ViewBag.wcType as SelectList;
+    SelectList roomCount = ViewBag.roomCount as SelectList;
+}
+<table style="width: 100%">
+    <tr>
+        <td style="width: 200px">
+            Тип дома
+        </td>
+        <td>@Html.DropDownList("buildingType", buildingType, "Выберите...", new { @class = "searchBoxDDL" })
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Санузел
+        </td>
+        <td>@Html.DropDownList("wcType", wcType, "Выберите...", new { @class = "searchBoxDDL" })
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Количество комнат
+        </td>
+        <td>@Html.DropDownList("roomCount", roomCount, "Выберите...", new { @class = "searchBoxDDL" })
+        </td>
+    </tr>
+</table>
+
+<table style="width:100%">
+    <tr>
+        <td>
+            &nbsp; <b>Общая площадь</b>
+        </td>
+        <td>
+            от &nbsp; @Html.TextBox("sizemin", string.Empty, new { style = "width: 40px;" })&nbsp;
+        </td>
+        <td>
+            до &nbsp;@Html.TextBox("sizemax", string.Empty, new { style = "width: 40px;" })
+        </td>
+    </tr>
+</table>

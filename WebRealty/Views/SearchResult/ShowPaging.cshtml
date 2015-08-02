@@ -1,0 +1,92 @@
+﻿@model WebRealty.Models.SearchPageParams
+<table style="width: 100%;">
+    <tbody>
+        <tr>
+            <td style="text-align: center">
+                @Html.ActionLink("Первая","SearchByParams", "SearchBox",
+        new {
+            PropertyType=Model.iPropertyType,
+            PropertyTypeAction = Model.iPropertyTypeAction,
+            PropertyTypeCities = Model.iPropertyTypeCities,
+            PropertyTypeCityDistrict = Model.iPropertyTypeCityDistrict,
+            navigatePage=1,
+            SortType=Model.SortType,
+            ShowType = Model.ShowType,
+            
+            commercialPropertyType=Model.commercialPropertyType,
+            countFloors=Model.countFloors,
+            distToCityMin=Model.distToCityMin,
+            distToCityMax=Model.distToCityMax,
+            buildingType=Model.buildingType,
+            wcType=Model.wcType,
+            roomCount=Model.roomCount,
+            sizemin=Model.sizemin,
+            sizemax=Model.sizemax
+        },null)
+                &nbsp;
+                @Html.ActionLink("Предыдущая","SearchByParams", "SearchBox",
+        new {
+            PropertyType=Model.iPropertyType,
+            PropertyTypeAction = Model.iPropertyTypeAction,
+            PropertyTypeCities = Model.iPropertyTypeCities,
+            PropertyTypeCityDistrict = Model.iPropertyTypeCityDistrict,
+            navigatePage = (@Model.navigatePage > 1 ? (@Model.navigatePage - 1) : 1),
+            SortType = Model.SortType,
+            ShowType = Model.ShowType,
+
+            commercialPropertyType = Model.commercialPropertyType,
+            countFloors = Model.countFloors,
+            distToCityMin = Model.distToCityMin,
+            distToCityMax = Model.distToCityMax,
+            buildingType = Model.buildingType,
+            wcType = Model.wcType,
+            roomCount = Model.roomCount,
+            sizemin = Model.sizemin,
+            sizemax = Model.sizemax
+        }, null)
+                &nbsp; <span>@Model.currentPage из @Model.countPagesFound </span>&nbsp;
+                @Html.ActionLink("Следующая","SearchByParams", "SearchBox",
+        new {
+            PropertyType=Model.iPropertyType,
+            PropertyTypeAction = Model.iPropertyTypeAction,
+            PropertyTypeCities = Model.iPropertyTypeCities,
+            PropertyTypeCityDistrict = Model.iPropertyTypeCityDistrict,
+            navigatePage = (@Model.navigatePage + 1),
+            SortType = Model.SortType,
+            ShowType = Model.ShowType,
+
+            commercialPropertyType = Model.commercialPropertyType,
+            countFloors = Model.countFloors,
+            distToCityMin = Model.distToCityMin,
+            distToCityMax = Model.distToCityMax,
+            buildingType = Model.buildingType,
+            wcType = Model.wcType,
+            roomCount = Model.roomCount,
+            sizemin = Model.sizemin,
+            sizemax = Model.sizemax
+        }, null)
+                &nbsp;
+                @Html.ActionLink("Последняя","SearchByParams", "SearchBox",
+        new {
+            PropertyType=Model.iPropertyType,
+            PropertyTypeAction = Model.iPropertyTypeAction,
+            PropertyTypeCities = Model.iPropertyTypeCities,
+            PropertyTypeCityDistrict = Model.iPropertyTypeCityDistrict,
+            navigatePage = Model.countPagesFound,
+            SortType = Model.SortType,
+            ShowType = Model.ShowType,
+
+            commercialPropertyType = Model.commercialPropertyType,
+            countFloors = Model.countFloors,
+            distToCityMin = Model.distToCityMin,
+            distToCityMax = Model.distToCityMax,
+            buildingType = Model.buildingType,
+            wcType = Model.wcType,
+            roomCount = Model.roomCount,
+            sizemin = Model.sizemin,
+            sizemax = Model.sizemax
+        }, null)
+            </td>
+        </tr>
+    </tbody>
+</table>

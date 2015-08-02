@@ -1,0 +1,63 @@
+﻿@model WebRealty.Models.QuickTabSearchModel
+<div class="searchBox">
+    @using (Html.BeginForm("SearchByParams", "SearchBox", FormMethod.Get, new { @id="AdvancedSearchBox"}))
+    {
+        <table style="width: 100%">
+            <tr>
+                <td style="width:200px">Тип недвижимости@*@Html.DisplayFor(m => m.propertyType)*@
+                </td>
+                <td>
+                    @Html.DropDownList("PropertyType", Model.propertyType, "Выберите...", new { data_controler = "searchbox", data_propertyAction = "PropertyAction", @class = "searchBoxDDL" })
+                </td>
+            </tr>
+            <tr>
+                <td>Действие @*@Html.DisplayFor(m => m.propertyActionGeneral)*@
+                </td>
+                <td>@Html.DropDownList("PropertyTypeAction", new SelectList(string.Empty, string.Empty), new { data_controler = "searchbox", data_propertyAction = "PropertyCities", @class = "searchBoxDDL" })
+                </td>
+            </tr>
+            <tr>
+                <td>Город/область@*@Html.DisplayFor(m => m.cities)*@
+                </td>
+                <td>@Html.DropDownList("PropertyTypeCities", Model.cities, "Выберите...", new { data_controler = "searchbox", data_propertyAction = "PropertyCityDistricts", @class = "searchBoxDDL" })
+                </td>
+            </tr>
+            <tr>
+                <td>Район
+                </td>
+                <td>@Html.DropDownList("PropertyTypeCityDistrict", new SelectList(string.Empty, string.Empty), new { @class = "searchBoxDDL" })
+                </td>
+            </tr>
+        </table>
+    
+        <table>
+            <tr>
+                <td>
+                    &nbsp; <b>Цена</b>
+                </td>
+                <td>
+                    от &nbsp; @Html.TextBox("pricemin", (Request.QueryString["pricemin"] != null ? Request.QueryString["pricemin"].ToString() : string.Empty), new { style = "width: 40px;" })&nbsp;
+                </td>
+                <td>
+                    до &nbsp;@Html.TextBox("pricemax", (Request.QueryString["pricemax"] != null ? Request.QueryString["pricemax"].ToString() : string.Empty), new { style = "width: 40px;" }) &nbsp;
+                </td>
+
+                <td>
+                @Html.DropDownList("currecy", Model.currecy, "...", new { @class = "searchBoxDDL" })
+                </td>
+
+                                
+                <td>
+                    <div style="text-align: left; margin: 3px 11px 7px;">
+                        @Html.CheckBox("NoFee") &nbsp;<b>Без комиссии</b>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div id="advancedSearchParams"></div>
+        <div class="searchBoxInner">
+            <input type="submit" value="Найти" class="btn  btn-info" />
+        </div>
+    }
+</div>
+<script src="~/Scripts/_advancedSearch.js" type="text/javascript"></script>

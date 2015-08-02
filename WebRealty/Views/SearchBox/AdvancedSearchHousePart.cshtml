@@ -1,0 +1,39 @@
+﻿@{
+    SelectList countFloors = ViewBag.countFloors as SelectList;
+}
+<table style="width: 100%">
+    <tr>
+        <td style="width: 200px">
+            Количество этажей
+        </td>
+        <td>@Html.DropDownList("countFloors", countFloors, "Выберите...", new { @class = "searchBoxDDL" })
+        </td>
+    </tr>
+</table>
+
+<table style="width: 100%">
+    <tr>
+        <td>
+            &nbsp; <b>Площадь дома</b>
+        </td>
+        <td>
+            от &nbsp; @Html.TextBox("sizeminHouse", string.Empty, new { style = "width: 40px;" })&nbsp;
+        </td>
+        <td>
+            до &nbsp;@Html.TextBox("sizemaxHouse", string.Empty, new { style = "width: 40px;" })&nbsp;
+            м2.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            &nbsp; <b>Расстояние до города</b>
+        </td>
+        <td>
+            от &nbsp; @Html.TextBox("distToCityMin", string.Empty, new { style = "width: 40px;" })&nbsp;
+        </td>
+        <td>
+            до &nbsp;@Html.TextBox("distToCityMax", string.Empty, new { style = "width: 40px;" })&nbsp;
+            км.
+        </td>
+    </tr>
+</table>

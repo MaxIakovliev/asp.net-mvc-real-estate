@@ -1,0 +1,33 @@
+﻿@model IEnumerable<RealtyDomainObjects.News>
+
+<div style="margin:5px 5px 5px 10px;">
+
+<p>
+    <b>НОВОСТИ</b>
+</p>
+
+<table>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>            
+            <b>@Html.ActionLink(item.Title, "Detail", "News", new  {id=@item.Id }, null)
+            </b>&nbsp;
+            @if (item.Content.Length > 100)
+            {                
+             @item.Content.Substring(0,99)
+            }
+            else
+            {
+            @Html.DisplayFor(modelItem => item.Content)
+            }
+        </td>
+        
+        
+        
+    </tr>
+}
+
+</table>
+@Html.ActionLink("Все новости","Index","News")
+</div>

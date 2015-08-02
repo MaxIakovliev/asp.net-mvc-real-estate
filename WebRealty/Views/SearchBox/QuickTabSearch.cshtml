@@ -1,0 +1,50 @@
+﻿@model WebRealty.Models.QuickTabSearchModel
+<div id="SearchTabs">
+    <ul class="quickTabSearch" style="padding: 0 0 0px;">
+        <li><a href="#tabs-1">Квартиры</a></li>
+        <li><a href="#tabs-1">Дома. Дачи</a></li>
+        <li><a href="#tabs-1">Участки</a></li>
+        <li><a href="#tabs-1">Комм. недвижимость</a></li>
+        <li><a href="#tabs-1">Гаражи. Паркинги</a></li>
+        <li><a href="#tabs-1">За рубежом</a></li>
+        <li><a href="#tabs-1">Услуги</a></li>
+    </ul>
+    <div id="tabs-1" style="padding: 1px 1px 1px;">
+        @using (Html.BeginForm("SearchByParams", "SearchBox", FormMethod.Get, new  {@id="tabSearchFrm" }))
+        {
+		
+            <table>
+                <tr>
+                    <td>
+                        @Html.DropDownList("PropertyTypeAction", Model.flatPropertyActions)
+                    </td>
+                    <td>
+                        &nbsp; @Html.DropDownList("PropertyTypeCities", Model.cities, "Выберите город")
+                    </td>
+                
+                    <td>
+                        &nbsp; <b>Цена</b>
+                    </td>
+                    <td>
+                        от &nbsp; @Html.TextBox("pricemin", (Request.QueryString["pricemin"] != null ? Request.QueryString["pricemin"].ToString() : string.Empty), new { style = "width: 40px;" })&nbsp;
+                    </td>
+                    <td>
+                        до &nbsp;@Html.TextBox("pricemax", (Request.QueryString["pricemax"] != null ? Request.QueryString["pricemax"].ToString() : string.Empty), new { style = "width: 40px;" })
+                    </td>
+                    <td>
+                        <div style="text-align: left; margin: 3px 11px 7px;">
+                            @Html.CheckBox("NoFee") &nbsp;<b>Без комиссии</b>
+                        </div>
+                    </td>
+                    <td><input type="submit" value="Найти" class="btn  btn-info" /></td>
+                </tr>
+            </table>        
+        }
+        @Html.ActionLink("Расширенный поиск...","Index","Home",null,new {id="advancedSearchLink"})
+        <div id="advancedSearchDialog" title="Расширенный поиск">
+        <div id="advancedSearchContent"></div>
+        </div>
+    </div>
+    
+    
+</div>

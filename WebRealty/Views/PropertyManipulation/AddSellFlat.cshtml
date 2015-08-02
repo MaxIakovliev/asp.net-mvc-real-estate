@@ -1,0 +1,230 @@
+﻿@model RealtyDomainObjects.PropertyObject
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<link href="~/Scripts/qTip2.0.2/jquery.qtip.min.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/qTip2.0.2/jquery.qtip.min.js" type="text/javascript"></script>
+<script src="~/Scripts/_validationTooltip.js" type="text/javascript"></script>
+@*@using (Html.BeginForm("SaveSellFlat", "PropertyManipulation", FormMethod.Post))*@
+@using (Html.BeginForm("SavePropertyObject", "PropertyManipulation", FormMethod.Post))
+{
+    
+    SelectList buildingType = ViewBag.buildingType as SelectList;
+    SelectList wcType = ViewBag.wcType as SelectList;
+    SelectList currency = ViewBag.currency as SelectList;
+    SelectList priceForType = ViewBag.priceForType as SelectList;
+    SelectList periods = ViewBag.periods as SelectList;
+    
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+    <table>
+        <tr>
+            <td>@Html.LabelFor(model => model.Title)
+            </td>
+            <td>@Html.TextBoxFor(model => model.Title, new { @placeholder = "Введите текст заголовка", @class = "inputField" })
+                @Html.ValidationMessageFor(model => model.Title)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.RoomCount)
+            </td>
+            <td>@Html.TextBoxFor(model => model.RoomCount, new { style = "width:150px", @placeholder = "Количество комнат" })
+                @Html.ValidationMessageFor(model => model.RoomCount)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.TotalSpace)
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td style="width: auto; padding: 0em 0em 0em 0em;">@Html.TextBoxFor(model => model.TotalSpace, new { style = "width:50px", @placeholder = "Общая" })
+                            /&nbsp;
+                        </td>
+                        <td style="width: auto; padding: 0em 0em 0em 0em; vertical-align: middle">@Html.LabelFor(model => model.LivingSpace, new { style = "display:inline" })
+                            &nbsp;
+                        </td>
+                        <td style="width: auto; padding: 0em 0em 0em 0em;">@Html.TextBoxFor(model => model.LivingSpace, new { style = "width:50px", @placeholder = "Жилая" })
+                            /&nbsp;
+                        </td>
+                        <td style="width: auto; padding: 0em 0em 0em 0em;">@Html.LabelFor(model => model.KitchenSpace, new { style = "display:inline" })
+                        </td>
+                        <td style="width: auto">
+                            &nbsp;@Html.TextBoxFor(model => model.KitchenSpace, new { style = "width:50px", @placeholder = "Кухня" })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.BuildingTypeName)
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td style="width: auto; padding: 0em 0em 0em 0em;">
+                            @*@Html.DropDownList("buildingType", buildingType, new { @class = "sortBoxDDL", style = "width:150px" })*@
+                            @Html.DropDownListFor(m => m.BuildingTypeName.Id, buildingType, null, new { @class = "sortBoxDDL", style = "width:150px" })
+                            /&nbsp;
+                        </td>
+                        <td style="width: auto; padding: 0em 0em 0em 0em; vertical-align: middle">@Html.LabelFor(model => model.Floor, new { style = "display:inline; width:50px" })
+                            &nbsp;
+                        </td>
+                        <td style="width: auto; padding: 0em 0em 0em 0em;">@Html.TextBoxFor(model => model.Floor, new { style = "width:50px", @placeholder = "Этаж" })
+                            /&nbsp;
+                        </td>
+                        <td style="width: auto; padding: 0em 0em 0em 0em;">@Html.LabelFor(model => model.CountFloors, new { style = "display:inline" })
+                            &nbsp;
+                        </td>
+                        <td style="width: auto; padding: 0em 0em 0em 0em;">@Html.TextBoxFor(model => model.CountFloors, new { style = "width:50px", @placeholder = "Этажность" })
+                            /&nbsp;
+                        </td>
+                        <td style="width: auto; padding: 0em 0em 0em 0em;">@Html.EditorFor(model => model.IsNewBuilding)
+                            &nbsp;
+                        </td>
+                        <td style="width: auto; padding: 0em 0em 0em 0em;">@Html.LabelFor(model => model.IsNewBuilding, new { style = "display:inline" })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.WCType)
+            </td>
+            <td>
+                @*@Html.DropDownList("wcType", wcType, new { @class = "sortBoxDDL" })*@
+                @Html.DropDownListFor(m => m.WCType.Id, wcType, null, new { @class = "sortBoxDDL", style = "width:150px" })
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.BalconAvailable)
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td style="width: auto; padding: 0em 0em 0em 0em;">@Html.EditorFor(model => model.BalconAvailable)
+                            /&nbsp;
+                        </td>
+                        <td style="width: auto; padding: 0em 0em 0em 0em; vertical-align: middle">@Html.LabelFor(model => model.BalconSpace, new { style = "display:inline; width:50px" })
+                            &nbsp;
+                        </td>
+                        <td style="width: auto; padding: 0em 0em 0em 0em;">@Html.TextBoxFor(model => model.BalconSpace, new { style = "width:50px", @placeholder = "Площадь балкона" })
+                            /&nbsp;
+                        </td>
+                        <td style="width: auto; padding: 0em 0em 0em 0em;">@Html.EditorFor(model => model.isBalconGlassed)
+                            &nbsp;
+                        </td>
+                        <td style="width: auto; padding: 0em 0em 0em 0em;">@Html.LabelFor(model => model.isBalconGlassed, new { style = "display:inline" })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.Price)
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td style="width: auto; padding: 0em 0em 0em 0em;">@Html.TextBoxFor(model => model.Price, new { style = "width:50px", @placeholder = "Цена" })
+                            /&nbsp;
+                        </td>
+                        <td style="width: auto; padding: 0em 0em 0em 0em; vertical-align: middle">
+                            @*@Html.DropDownList("currency", currency, new { @class = "sortBoxDDL", style = "width:150px" })*@
+                            @Html.DropDownListFor(m => m.Currency.Id, currency, null, new { @class = "sortBoxDDL", style = "width:150px" })
+                            &nbsp;
+                        </td>
+                        <td style="width: auto; padding: 0em 0em 0em 0em;">
+                            @if (priceForType != null)
+                            {
+@*@Html.DropDownList("priceForType", priceForType, new { @class = "sortBoxDDL", style = "width:150px" })*@
+                                @Html.DropDownListFor(m => m.PriceForTypeName.Id, priceForType, null, new { @class = "sortBoxDDL", style = "width:150px" })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(m => m.Periods.Id, periods, null, new { @class = "sortBoxDDL", style = "width:150px", id = "Periods" })   
+                            }
+                            /&nbsp;
+                        </td>
+                        <td style="width: auto; padding: 0em 0em 0em 0em;">@Html.EditorFor(model => model.NoCommission)
+                            &nbsp;
+                        </td>
+                        <td style="width: auto; padding: 0em 0em 0em 0em;">@Html.LabelFor(model => model.NoCommission, new { style = "display:inline" })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.PropertyDescription)
+            </td>
+            <td>@Html.TextAreaFor(model => model.PropertyDescription, 5, 60, new { @placeholder = "Введите текст объявления", @class = "inputField" })
+                @Html.ValidationMessageFor(model => model.PropertyDescription)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.ContactName)
+            </td>
+            <td>@Html.TextBoxFor(model => model.ContactName, new { @placeholder = "Контактное имя", @class = "inputField" })
+                @Html.ValidationMessageFor(model => model.ContactName)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.Phone1)
+            </td>
+            <td>@Html.TextBoxFor(model => model.Phone1, new { @placeholder = "Телефон 1", @class = "inputField" })
+                @Html.ValidationMessageFor(model => model.Phone1)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.Phone2)
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model.Phone2, new { @placeholder = "Телефон 2", @class = "inputField" })
+                @Html.ValidationMessageFor(model => model.Phone2)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.Phone3)
+            </td>
+            <td>@Html.TextBoxFor(model => model.Phone3, new { @placeholder = "Телефон 3", @class = "inputField" })
+                @Html.ValidationMessageFor(model => model.Phone3)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.SourceUrl)
+            </td>
+            <td>@Html.TextBoxFor(model => model.SourceUrl, new { @placeholder = "Поле для ввода сайта", @class = "inputField" })
+                @Html.ValidationMessageFor(model => model.SourceUrl)
+            </td>
+        </tr>
+    </table>
+    
+    <p>
+        @{
+                            WebRealty.Models.SearchPageParams spr = ViewBag.SearchPageParams as WebRealty.Models.SearchPageParams;
+            @Html.Hidden("PropertyType", spr.iPropertyType)
+            @Html.Hidden("PropertyTypeAction", spr.iPropertyTypeAction)
+            @Html.Hidden("PropertyTypeCities", spr.iPropertyTypeCities)
+            @Html.Hidden("PropertyTypeCityDistrict", spr.iPropertyTypeCityDistrict)
+                            if (Model != null && Model.Id != null && Model.Id > 0)
+                            {
+            @Html.HiddenFor(m => m.Id)
+            
+
+            <input type="submit" value="Обновить &rarr;" class="btn  btn-info" />
+                            }
+                            else
+                            {
+            <input type="submit" value="Добавить &rarr;" class="btn  btn-info" />
+                            }
+        }
+    </p>
+    
+    
+    
+   
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

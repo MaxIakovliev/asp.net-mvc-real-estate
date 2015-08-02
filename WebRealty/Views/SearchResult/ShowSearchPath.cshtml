@@ -1,0 +1,126 @@
+﻿@model WebRealty.Models.SearchPathModel
+<table style="width: 100%">
+    <tbody>
+        <tr>
+            <td style="text-align: left; vertical-align: middle;">
+                <div style="font-size: 14px;">
+                    @if (Model.PropertyType != null)
+                    {
+                        @Html.ActionLink(Model.PropertyType.PropertyTypeName, "", null, new { @id = "lnkPropertyTypePath" }) 
+                
+                
+                        if (Model.PropertyTypes != null)
+                        {
+                        <div id="divPropertyTypesPath" class="floating-window" style="display: none; width: 200px">
+                            <div class="wrapper shadow" style="width: 100%; display: inline-block; margin: 0;
+                                padding: 0px 0px 0px 0px">
+                                <dl class="unordered-list" style="float: left">
+                                    @foreach (var item in Model.PropertyTypes)
+                                    {
+                                        <dd>
+                                            @Html.ActionLink(item.PropertyTypeName, "")
+                                        </dd>
+                                    }
+                                </dl>
+                            </div>
+                        </div>
+                        }
+                    }
+                    @if (Model.PropertyAction != null)
+                    {
+                        @Html.Raw("&raquo;");
+                        @Html.ActionLink(Model.PropertyAction.PropertyActionName, "", null, new { @id = "lnkPropertyActionPath" })
+                                            if (Model.PropertyActions != null)
+                                            {
+                        <div id="divPropertyActionsPath" class="floating-window" style="display: none; width: 200px">
+                            <div class="wrapper shadow" style="width: 100%; display: inline-block; margin: 0;
+                                padding: 0px 0px 0px 0px">
+                                <dl class="unordered-list" style="float: left">
+                                    @foreach (var item in Model.PropertyActions)
+                                    {
+                                        <dd>
+                                            @Html.ActionLink(item.PropertyActionName, "")
+                                        </dd>
+                                    }
+                                </dl>
+                            </div>
+                        </div>
+                                            }
+                    }
+                    @if (Model.City != null)
+                    {
+                        @Html.Raw("&raquo;");
+                        @Html.ActionLink(Model.City.CityName, "", null, new { @id = "lnkCityPath" })
+
+                                            if (Model.Cities != null)
+                                            {
+                        <div id="divCityPath" class="floating-window" style="display: none; width: 400px">
+                            <div class="wrapper shadow" style="width: 100%; display: inline-block; margin: 0;
+                                padding: 0px 0px 0px 0px">
+                                @{
+                                                int countPerRow = 0;
+                                                bool needClose=false;
+                                    @*<dl class="unordered-list" style="float: left">*@
+                                        foreach (var item in Model.Cities)
+                                        {
+                                            if(countPerRow==0){
+                                                if(needClose){
+                                                @Html.Raw("</dl>")
+                                                }
+                                                @Html.Raw("<dl class=\"unordered-list\" style=\"float: left\">")
+                                                needClose = true;
+                                            }
+                                
+                                             @Html.Raw("<dd>")
+                                                @Html.ActionLink(item.CityName, "")
+                                             @Html.Raw("</dd>")
+                                            
+                                            
+
+                                            countPerRow++;
+                                            if (countPerRow > 10)
+                                            {
+                                                countPerRow = 0;
+                                            }
+
+
+
+                                        }
+                                         @Html.Raw("</dl>")
+                                    @*</dl> *@
+                                }
+                            </div>
+                        </div>
+                                            }
+                    }
+                    @if (Model.CityDisctict != null)
+                    {                    
+                        @Html.Raw("&raquo;");
+                        @*@Model.CityDisctict.District*@
+                        @Html.ActionLink(Model.CityDisctict.District, "", null, new { @id = "lnkDistrictPath" })
+                        if (Model.CityDiscticts != null)
+                        {
+                        <div id="divDistrictPath" class="floating-window" style="display: none; width: 200px; padding-left:200px">
+                            <div class="wrapper shadow" style="width: 100%; display: inline-block; margin: 0;
+                                padding: 0px 0px 0px 0px">
+                                <dl class="unordered-list" style="float: left">
+                                    @foreach (var item in Model.CityDiscticts)
+                                    {
+                                        <dd>
+                                            @Html.ActionLink(item.District, "")
+                                        </dd>
+                                    }
+                                </dl>
+                            </div>
+                        </div>
+                        }
+                        
+                        
+                    }
+                </div>
+            </td>
+            <td>
+            </td>
+        </tr>
+    </tbody>
+</table>

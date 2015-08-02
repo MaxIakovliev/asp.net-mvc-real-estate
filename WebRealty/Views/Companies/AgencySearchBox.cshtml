@@ -1,0 +1,24 @@
+﻿@model SelectList
+@{
+    var city = new RealtyDomainObjects.City();
+    var district = new RealtyDomainObjects.CityDisctict();
+    IEnumerable<SelectListItem> item = new List<SelectListItem>();
+}
+@if (Model != null)
+{
+    <table style="width: 100%">
+        <tbody>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => city.CityName)
+                </td>
+                <td>@Html.DropDownList("City", Model, "Выберите")
+                </td>
+                <td>@Html.LabelFor(m => district.District)
+                </td>
+                <td>@Html.DropDownList("District1",item,"Выберите")
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}

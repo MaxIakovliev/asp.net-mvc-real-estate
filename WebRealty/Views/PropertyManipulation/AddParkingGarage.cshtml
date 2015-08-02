@@ -1,0 +1,111 @@
+﻿@model RealtyDomainObjects.PropertyObject
+@{
+    SelectList currency = ViewBag.currency as SelectList;
+    SelectList priceForType = ViewBag.priceForType as SelectList;
+
+    using (Html.BeginForm("SavePropertyObject", "PropertyManipulation", FormMethod.Post))
+    {
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+
+    <table>
+        <tr>
+            <td>@Html.LabelFor(model => model.Title)
+            </td>
+            <td>@Html.TextBoxFor(model => model.Title, new { @placeholder = "Введите текст заголовка", @class = "inputField" })
+                @Html.ValidationMessageFor(model => model.Title)
+            </td>
+        </tr>
+       
+        
+        <tr>
+            <td>@Html.LabelFor(model => model.Price)
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                        @Html.TextBoxFor(model => model.Price, new { style = "width:50px", @placeholder = "Цена" })&nbsp;
+                        </td>
+                        <td>
+                        @Html.DropDownListFor(m => m.Currency.Id, currency, null, new { @class = "sortBoxDDL", style = "width:150px" })&nbsp;
+                        </td>
+                        <td>
+                            @Html.DropDownList("priceForType", priceForType, new { @class = "sortBoxDDL", style = "width:150px" })&nbsp;
+                        </td>
+                        <td>@Html.EditorFor(model => model.NoCommission)&nbsp;@Html.LabelFor(model => model.NoCommission, new { style = "display:inline" })&nbsp;
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.PropertyDescription)
+            </td>
+            <td>@Html.TextAreaFor(model => model.PropertyDescription, new { @placeholder = "Введите текст объявления", @cols = 80, @rows = 10, @class = "inputField" })
+                @Html.ValidationMessageFor(model => model.PropertyDescription)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.Phone1)
+            </td>
+            <td>@Html.TextBoxFor(model => model.Phone1, new { @placeholder = "Телефон 1", @class = "inputField" })
+                @Html.ValidationMessageFor(model => model.Phone1)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.Phone2)
+            </td>
+            <td>@Html.TextBoxFor(model => model.Phone2, new { @placeholder = "Телефон 2", @class = "inputField" })
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.Phone3)
+            </td>
+            <td>@Html.TextBoxFor(model => model.Phone3, new { @placeholder = "Телефон 3", @class = "inputField" })
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.ContactName)
+            </td>
+            <td>@Html.TextBoxFor(model => model.ContactName, new { @placeholder = "Контактное имя", @class = "inputField" })
+                @Html.ValidationMessageFor(model => model.ContactName)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.SourceUrl)
+            </td>
+            <td>@Html.TextBoxFor(model => model.SourceUrl, new { @placeholder = "Поле для ввода сайта", @class = "inputField" })
+            </td>
+        </tr>
+    </table>
+    <p>
+        @{
+                            WebRealty.Models.SearchPageParams spr = ViewBag.SearchPageParams as WebRealty.Models.SearchPageParams;
+            @Html.Hidden("PropertyType", spr.iPropertyType)
+            @Html.Hidden("PropertyTypeAction", spr.iPropertyTypeAction)
+            @Html.Hidden("PropertyTypeCities", spr.iPropertyTypeCities)
+            @Html.Hidden("PropertyTypeCityDistrict", spr.iPropertyTypeCityDistrict)
+
+            if (Model != null && Model.Id != null && Model.Id > 0)
+                            {
+            @Html.HiddenFor(m => m.Id)
+            
+
+            <input type="submit" value="Обновить &rarr;" class="btn  btn-info"/>
+                            }
+            else
+            {
+            <input type="submit" value="Добавить &rarr;" class="btn  btn-info"/>
+            }
+        }
+        
+    </p>
+    }
+}
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/qTip2.0.2/jquery.qtip.min.js" type="text/javascript"></script>
+<script src="~/Scripts/_validationTooltip.js" type="text/javascript"></script>
+<link href="~/Scripts/qTip2.0.2/jquery.qtip.min.css" rel="stylesheet" type="text/css" />

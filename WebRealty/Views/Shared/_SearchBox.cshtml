@@ -1,0 +1,30 @@
+﻿@*@model IEnumerable<RealtyDomainObjects.PropertyType>*@
+@model RealtyDomainObjects.PropertyType
+@{
+    var PropertyTypes = ViewBag.PropertyTypes as SelectList;
+}
+@using (Html.BeginForm("SearchByParams", "SearchBox", FormMethod.Get))
+{
+<div class="searchBox">
+    <div class="searchBoxInner">
+    @*@Html.DropDownList("PropertyType", new SelectList(Model, "Id", "PropertyTypeName"), new {data_controler="searchbox", data_propertyAction = "PropertyAction", @class = "searchBoxDDL" })    *@
+    @Html.DropDownList("PropertyType", PropertyTypes, new { data_controler = "searchbox", data_propertyAction = "PropertyAction", @class = "searchBoxDDL" })    
+    @*@Html.DropDownListFor(m => m.PropertyTypeName, PropertyTypes, null, new { data_controler = "searchbox", data_propertyAction = "PropertyAction", @class = "searchBoxDDL", id = "PropertyType", name = "PropertyType" })*@
+    </div>
+    <div id="PropertyTypeActionDiv" class="searchBoxInner" style="display:none">
+    @Html.DropDownList("PropertyTypeAction", new SelectList(string.Empty, string.Empty), new { data_controler = "searchbox", data_propertyAction = "PropertyCities", @class = "searchBoxDDL" })
+    </div>
+    <div id="PropertyTypeCitiesDiv" class="searchBoxInner" style="display:none">
+    @Html.DropDownList("PropertyTypeCities", new SelectList(string.Empty, string.Empty), new { data_controler = "searchbox", data_propertyAction = "PropertyCityDistricts", @class = "searchBoxDDL" })
+    </div>
+    <div id="PropertyTypeCityDistrictDiv" class="searchBoxInner" style="display:none">
+    @Html.DropDownList("PropertyTypeCityDistrict", new SelectList(string.Empty, string.Empty), new { @class = "searchBoxDDL" })
+    </div>
+        <div  class="searchBoxInner">
+        <input type="submit" value="Найти"  class="btn  btn-info" />
+        </div>
+</div>
+}
+<p>
+@Html.ActionLink("Расширенный поиск...","Index","Home",null,new {id="advancedSearchLink"})
+</p>

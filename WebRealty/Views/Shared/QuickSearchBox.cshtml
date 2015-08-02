@@ -1,0 +1,28 @@
+﻿@model WebRealty.Models.QuickSearchModel
+<p>
+<h6>Аренда, продажа недвижимости в городах Украины</h6>
+</p>
+<table style="width: 100%">
+    <tr>
+        @foreach (var city in @Model.City)
+        {
+            <td><b>
+                @city.CityName</b>
+            </td>
+         }
+    </tr>
+    <tr>
+    @foreach (var city in @Model.City)
+    {
+        
+        <td style=" vertical-align:top">
+       @foreach (var item in @Model.PropertyAction)
+        {
+            @Html.ActionLink(@item.PropertyActionName + " " + @item.PropertyType.PropertyTypeNamePadej.ToLower() + " " + " в " + city.CityNamePadej, "SearchByParams","SearchBox",
+                                                     new { PropertyType = @item.PropertyType.Id.ToString(), PropertyTypeAction = @item.Id, PropertyTypeCities = city.Id }, null) 
+            <br />
+        }
+        </td>
+    }
+    </tr>
+</table>

@@ -1,0 +1,82 @@
+﻿@model IEnumerable<RealtyDomainObjects.PropertyObject>
+@{
+    int tmp = 0;
+}
+<h2>
+    Горячие предложения</h2>
+<table id="hot-offers">
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (tmp == 0)
+            {             
+            @Html.Raw("<tr>")
+            }
+@*<tr>*@
+            <td style="vertical-align: top;">
+                <center>
+                    @*<a href="index">
+                        <img src="~/Content/1.jpg" alt="@item.Title" title="@item.Title"  />
+                    </a>*@ <a href="../SearchResult/ObjectDetails?id=@item.Id">
+                        <img src='../SearchResult/getImgPreview?id=@item.Id' alt="@item.Title" title="@item.Title" style="padding:5px; border:1px solid #DDD; background-color:whiteSmoke" />
+                    </a>
+                </center>
+                @{
+                    <p class="pOnMain">
+                        @if (@item.PropertyDescription.Length > 200)
+                        {
+                
+                            @Html.ActionLink(item.Title, "ObjectDetails", "SearchResult",
+                                new
+                                {
+                                    id = @item.Id
+                                }, null)
+                        @Html.Raw("&nbsp;")
+
+                            @item.PropertyDescription.Substring(0, 199)
+                        }
+                        else
+                        {
+                
+                            @Html.ActionLink(item.Title, "ObjectDetails", "SearchResult",
+                                new
+                                {
+                                    id = @item.Id
+                                }, null)
+                        @Html.Raw("&nbsp;")
+
+                            @item.PropertyDescription 
+                        }
+                    </p>
+                }
+                <p class="price">
+                    Цена: <span style="color: #DD491F;">
+                    @if (@item.Price > 0)
+                    {
+                    @item.Price
+                        @Html.Raw("&nbsp;")
+                         @item.Currency.CurrencyTypeName
+                    }
+                    else
+                    {
+                    @Html.Raw("Договорная")
+                    }
+
+
+                    
+                    </span></p>
+            </td>
+@*</tr>*@
+                    tmp++;
+                    if (tmp == 2)
+                    {
+                        tmp = 0;
+            @Html.Raw("</tr>");
+                    }
+        }
+        @if (tmp != 0)
+        {
+            @Html.Raw("</tr>");
+        }
+    </tbody>
+</table>

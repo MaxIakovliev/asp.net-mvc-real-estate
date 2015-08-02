@@ -1,0 +1,165 @@
+﻿@model RealtyDomainObjects.PropertyObject
+@{
+    SelectList currency = ViewBag.currency as SelectList;
+    SelectList periods = ViewBag.periods as SelectList;
+    SelectList priceForType = ViewBag.priceForType as SelectList;
+    var landCommunications = ViewBag.landCommunication as List<RealtyDomainObjects.LandCommunication>;
+    var landFunction = ViewBag.landFunction as List<RealtyDomainObjects.LandFunction>;
+
+    using (Html.BeginForm("SavePropertyObject", "PropertyManipulation", FormMethod.Post))
+    {
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+
+    <table>
+        <tr>
+            <td>@Html.LabelFor(model => model.Title)
+            </td>
+            <td>@Html.TextBoxFor(model => model.Title, new { @placeholder = "Введите текст заголовка", @class = "inputField" })
+                @Html.ValidationMessageFor(model => model.Title)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Площадь
+            </td>
+            <td>
+                Участок:&nbsp; @Html.TextBoxFor(model => model.TotalSpace, new { style = "width:50px", @placeholder = "Общая" })&nbsp;соток                
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.DistanceToCity)
+            </td>
+            <td>@Html.TextBoxFor(model => model.DistanceToCity, new { style = "width:100px", @placeholder = "Расстояние до города" })
+                км.
+            </td>
+        </tr>
+        @if (landCommunications != null && landCommunications.Count() > 0)
+        {
+            <tr>
+                <td>@Html.LabelFor(v => landCommunications[0].LandCommunicationsName)
+                </td>
+                <td>
+                    @foreach (var item in landCommunications)
+                    {
+                        @Html.CheckBox(item.guid.ToString(), false) 
+                        @Html.Raw("&nbsp;")
+                        @Html.DisplayFor(v => item.LandCommunicationsName)
+                        <br />
+                    }
+                </td>
+            </tr>
+        }
+        
+        <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        </tr>
+
+        @if (landFunction != null && landFunction.Count() > 0)
+        {
+            <tr>
+                <td>@Html.LabelFor(v => landFunction[0].LandFunctionName)
+                </td>
+                <td>
+                    @foreach (var item in landFunction)
+                    {
+                        @Html.CheckBox(item.guid.ToString(), false) 
+                        @Html.Raw("&nbsp;")
+                        @Html.DisplayFor(v => item.LandFunctionName)
+                        <br />
+                    }
+                </td>
+            </tr>
+        }
+
+        <tr>
+            <td>@Html.LabelFor(model => model.Price)
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td>@Html.TextBoxFor(model => model.Price, new { style = "width:50px", @placeholder = "Цена" })
+                        </td>
+                        <td>
+                        @Html.DropDownListFor(m=>m.Currency.Id, currency, new { @class = "sortBoxDDL", style = "width:150px" })
+                        </td>
+                        <td>
+                          
+                        </td>
+                        <td>@Html.EditorFor(model => model.NoCommission)&nbsp;@Html.LabelFor(model => model.NoCommission, new { style = "display:inline" })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.PropertyDescription)
+            </td>
+            <td>@Html.TextAreaFor(model => model.PropertyDescription, new { @placeholder = "Введите текст объявления", @cols = 80, @rows = 10, @class = "inputField" })
+                @Html.ValidationMessageFor(model => model.PropertyDescription)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.Phone1)
+            </td>
+            <td>@Html.TextBoxFor(model => model.Phone1, new { @placeholder = "Телефон 1", @class = "inputField" })
+                @Html.ValidationMessageFor(model => model.Phone1)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.Phone2)
+            </td>
+            <td>@Html.TextBoxFor(model => model.Phone2, new { @placeholder = "Телефон 2", @class = "inputField" })
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.Phone3)
+            </td>
+            <td>@Html.TextBoxFor(model => model.Phone3, new { @placeholder = "Телефон 3", @class = "inputField" })
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.ContactName)
+            </td>
+            <td>@Html.TextBoxFor(model => model.ContactName, new { @placeholder = "Контактное имя", @class = "inputField" })
+                @Html.ValidationMessageFor(model => model.ContactName)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(model => model.SourceUrl)
+            </td>
+            <td>@Html.TextBoxFor(model => model.SourceUrl, new { @placeholder = "Поле для ввода сайта", @class = "inputField" })
+            </td>
+        </tr>
+    </table>
+    <p>
+        @{
+                            WebRealty.Models.SearchPageParams spr = ViewBag.SearchPageParams as WebRealty.Models.SearchPageParams;
+            @Html.Hidden("PropertyType", spr.iPropertyType)
+            @Html.Hidden("PropertyTypeAction", spr.iPropertyTypeAction)
+            @Html.Hidden("PropertyTypeCities", spr.iPropertyTypeCities)
+            @Html.Hidden("PropertyTypeCityDistrict", spr.iPropertyTypeCityDistrict)
+
+            if (Model != null && Model.Id != null && Model.Id > 0)
+                            {
+            @Html.HiddenFor(m => m.Id)
+            
+
+            <input type="submit" value="Обновить &rarr;"   class="btn  btn-info"/>
+                            }
+            else
+            {
+            <input type="submit" value="Добавить &rarr;" class="btn  btn-info"/>
+            }
+        }
+        
+    </p>
+    }
+}
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/qTip2.0.2/jquery.qtip.min.js" type="text/javascript"></script>
+<script src="~/Scripts/_validationTooltip.js" type="text/javascript"></script>
+<link href="~/Scripts/qTip2.0.2/jquery.qtip.min.css" rel="stylesheet" type="text/css" />

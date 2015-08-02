@@ -1,0 +1,83 @@
+﻿@model WebRealty.Models.SearchObjectParams
+
+@using (Html.BeginForm("SearchByParams", "SearchBox", FormMethod.Get))
+{
+    <div class="searchBox">
+        <div class="searchBoxInner">
+            @Html.DropDownList("PropertyType", new SelectList(Model.PropertyType, "Id", "PropertyTypeName", Model.PropertyTypeId), new { data_controler = "searchbox", data_propertyAction = "PropertyAction", @class = "searchBoxDDL" })
+        </div>
+
+        <div id="PropertyTypeActionDiv" class="searchBoxInner">
+            @if (Model.PropertyAction == null)
+            {            
+                @Html.DropDownList("PropertyTypeAction", new SelectList(string.Empty, string.Empty), new { data_controler = "searchbox", data_propertyAction = "PropertyCities", @class = "searchBoxDDL" })
+            
+            }
+            else
+            {    
+         
+                @Html.DropDownList("PropertyTypeAction",
+              Model.PropertyAction,
+              new
+              {
+                  data_controler = "searchbox",
+                  data_propertyAction = "PropertyCities",
+                  @class = "searchBoxDDL"
+              })
+         
+            }
+        </div>
+
+        <div id="PropertyTypeCitiesDiv" class="searchBoxInner">
+        @if (Model.City == null)
+        {
+            @Html.DropDownList("PropertyTypeCities", new SelectList(string.Empty, string.Empty), new { data_controler = "searchbox", data_propertyAction = "PropertyCityDistricts", @class = "searchBoxDDL" })
+        }
+        else
+        {
+        @Html.DropDownList("PropertyTypeCities", Model.City, new { data_controler = "searchbox", data_propertyAction = "PropertyCityDistricts", @class = "searchBoxDDL" })
+        }
+        </div>
+
+        <div id="PropertyTypeCityDistrictDiv" class="searchBoxInner">
+        @if (Model.CityDisctict == null)
+        {
+            @Html.DropDownList("PropertyTypeCityDistrict", new SelectList(string.Empty, string.Empty), new { @class = "searchBoxDDL" })
+        }
+        else
+        {
+        @Html.DropDownList("PropertyTypeCityDistrict", Model.CityDisctict, new { @class = "searchBoxDDL" })
+        }
+        @Html.Hidden("SortType",(Request.QueryString["SortType"]!=null?Request.QueryString["SortType"]:"1"))
+        @Html.Hidden("ShowType",(Request.QueryString["ShowType"]!=null?Request.QueryString["ShowType"]:"-1"))
+
+        </div>
+        
+        <div  class="searchBoxInner" style="border:1px solid #bbb;">
+        
+         <div  style="text-align:left;margin:3px 11px 7px;"><b>Цена:</b></div>
+         
+         от &nbsp; @Html.TextBox("pricemin", (Request.QueryString["pricemin"]!=null?Request.QueryString["pricemin"].ToString():string.Empty), new { style = "width: 40px;" })&nbsp;
+         до &nbsp;@Html.TextBox("pricemax", (Request.QueryString["pricemax"] != null ? Request.QueryString["pricemax"].ToString() : string.Empty), new { style = "width: 40px;" })
+         &nbsp;
+          @Html.DropDownList("currency", new List<SelectListItem>
+                                                 {
+                            new SelectListItem{ Text="у.е.", Value = "1",Selected=(Request.QueryString["currency"]=="1"?true:false)   }, 
+                            new SelectListItem{ Text="грн.", Value = "2",Selected=(Request.QueryString["currency"]=="2"?true:false) }, 
+                            new SelectListItem{ Text="евро", Value = "3",Selected=(Request.QueryString["currency"]=="3"?true:false) }                        
+                                                 }, new { @class = "sortBoxDDL", style="width:55px;" }) 
+&nbsp;
+           <div style="text-align:left;margin:3px 11px 7px;">
+           @Html.CheckBox("NoFee") &nbsp;<b>Без комиссии</b>
+           </div>
+        
+        </div>      
+
+        <div  class="searchBoxInner">
+        <input type="submit" value="Найти" class="btn  btn-info" />
+        </div>
+    </div>
+}
+<p>
+@Html.ActionLink("Расширенный поиск...","Index","Home",null,new {id="advancedSearchLink"})
+</p>

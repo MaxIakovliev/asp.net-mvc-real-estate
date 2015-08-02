@@ -1,0 +1,71 @@
+﻿@{
+    
+    var landCommunications = ViewBag.landCommunication as List<RealtyDomainObjects.LandCommunication>;
+    var landFunction = ViewBag.landFunction as List<RealtyDomainObjects.LandFunction>;
+    
+}
+
+<table style="width:100%">
+ @if (landCommunications != null && landCommunications.Count() > 0)
+        {
+            <tr style="width:200px">
+                <td  style="vertical-align:top">@Html.LabelFor(v => landCommunications[0].LandCommunicationsName)
+                </td>
+                <td>
+                    @foreach (var item in landCommunications)
+                    {
+                        @Html.CheckBox(item.guid.ToString(), false) 
+                        @Html.Raw("&nbsp;")
+                        @Html.DisplayFor(v => item.LandCommunicationsName)
+                        <br />
+                    }
+                    <hr />
+                </td>
+            </tr>
+        }
+        
+         @if (landFunction != null && landFunction.Count() > 0)
+        {
+            <tr>
+                <td style="vertical-align:top">@Html.LabelFor(v => landFunction[0].LandFunctionName)
+                </td>
+                <td>
+                    @foreach (var item in landFunction)
+                    {
+                        @Html.CheckBox(item.guid.ToString(), false) 
+                        @Html.Raw("&nbsp;")
+                        @Html.DisplayFor(v => item.LandFunctionName)
+                        <br />
+                    }
+                </td>
+            </tr>
+        }
+</table>
+
+
+<table style="width: 100%">
+    <tr>
+        <td>
+            &nbsp; <b>Площадь</b>
+        </td>
+        <td>
+            от &nbsp; @Html.TextBox("sizemin", string.Empty, new { style = "width: 40px;" })&nbsp;
+        </td>
+        <td>
+            до &nbsp;@Html.TextBox("sizemax", string.Empty, new { style = "width: 40px;" })&nbsp;
+            соток
+        </td>
+    </tr>
+    <tr>
+        <td>
+            &nbsp; <b>Расстояние до города</b>
+        </td>
+        <td>
+            от &nbsp; @Html.TextBox("distToCityMin", string.Empty, new { style = "width: 40px;" })&nbsp;
+        </td>
+        <td>
+            до &nbsp;@Html.TextBox("distToCityMax", string.Empty, new { style = "width: 40px;" })&nbsp;
+            км.
+        </td>
+    </tr>
+</table>

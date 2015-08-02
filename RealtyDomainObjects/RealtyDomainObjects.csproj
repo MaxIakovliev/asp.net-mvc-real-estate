@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BFEEF2A5-1C86-41BE-BEFC-1B5747442C97}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RealtyDomainObjects</RootNamespace>
+    <AssemblyName>RealtyDomainObjects</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Agency.cs" />
+    <Compile Include="AgencyToPhone.cs" />
+    <Compile Include="BuildingType.cs" />
+    <Compile Include="Building_type_of_roof.cs" />
+    <Compile Include="Characteristic_of_space_gips.cs" />
+    <Compile Include="Characteristic_of_space_some_feature.cs" />
+    <Compile Include="Characteristic_of_space_state.cs" />
+    <Compile Include="City.cs" />
+    <Compile Include="CityDisctict.cs" />
+    <Compile Include="CommercialPropertyType.cs" />
+    <Compile Include="Communication_conditioner.cs" />
+    <Compile Include="Communication_gas.cs" />
+    <Compile Include="Communication_heating.cs" />
+    <Compile Include="Communication_internet.cs" />
+    <Compile Include="Communication_phone.cs" />
+    <Compile Include="Communication_tv.cs" />
+    <Compile Include="Communication_water.cs" />
+    <Compile Include="Communication_water_heating.cs" />
+    <Compile Include="CurrencyType.cs" />
+    <Compile Include="Doors_and_windows_count_glass.cs" />
+    <Compile Include="Doors_and_windows_indoor.cs" />
+    <Compile Include="Doors_and_windows_window_type.cs" />
+    <Compile Include="Flat_planirovka.cs" />
+    <Compile Include="LandCommunication.cs" />
+    <Compile Include="LandCommunicationToObj.cs" />
+    <Compile Include="LandFunction.cs" />
+    <Compile Include="LandFunctionToObj.cs" />
+    <Compile Include="News.cs" />
+    <Compile Include="NewsCategory.cs" />
+    <Compile Include="ObjectImages.cs" />
+    <Compile Include="Other_docs_na_pravo_sobstv.cs" />
+    <Compile Include="Other_obstoyatelstva.cs" />
+    <Compile Include="Other_pravo_spbst_na_nedvig.cs" />
+    <Compile Include="Other_pravo_spbst_na_zemlyu.cs" />
+    <Compile Include="Periods.cs" />
+    <Compile Include="PriceForType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyObject.cs" />
+    <Compile Include="PropertyStats.cs" />
+    <Compile Include="PropertyType.cs" />
+    <Compile Include="PropertyAction.cs" />
+    <Compile Include="Realtor.cs" />
+    <Compile Include="RealtorToPhone.cs" />
+    <Compile Include="ServiceType.cs" />
+    <Compile Include="State_of_building.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="UserPhoto.cs" />
+    <Compile Include="Uteplenie.cs" />
+    <Compile Include="WCType.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

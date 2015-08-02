@@ -1,0 +1,239 @@
+﻿@model IEnumerable<RealtyDomainObjects.PropertyObject>
+@{
+    ViewBag.Title = "SearchByParams";
+}
+<table>
+    <tbody>
+        <tr>
+            <td class="column-left">
+                <b>Поиск объявлений</b> @*<div class="search-ads-total">
+                    всего 241618 объявлений</div>*@
+                @Html.Action("PopulateSearchBox", "SearchBox", Request.QueryString)
+            </td>
+            <td class="column-listing" style="vertical-align:top">
+                <table class="ads-found" style="width: 100%; height: 40px">
+                    <tbody>
+                        <tr>
+                            <td style="width: 20%">
+                                &nbsp; @* Найдено объявлений:&nbsp;<b>
+                                @if(Model!=null){
+                                 @Model.Count()   
+                                }
+                                else {
+                                   @Html.Raw("0")
+                                }
+                                </b>*@
+                            </td>
+                            <td style="width: 10%">
+                                @Html.ActionLink("Списком", "SearchByParams", "SearchBox",
+                            new
+                            {
+
+                                PropertyType = (Request.QueryString["PropertyType"] != null ? Request.QueryString["PropertyType"] : "-1"),
+                                PropertyTypeAction = (Request.QueryString["PropertyTypeAction"] != null ? Request.QueryString["PropertyTypeAction"] : "-1"),
+                                PropertyTypeCities = (Request.QueryString["PropertyTypeCities"] != null ? Request.QueryString["PropertyTypeCities"] : "-1"),
+                                PropertyTypeCityDistrict = (Request.QueryString["PropertyTypeCityDistrict"] != null ? Request.QueryString["PropertyTypeCityDistrict"] : "-1"),
+                                navigatePage = (Request.QueryString["navigatePage"] != null ? Request.QueryString["navigatePage"] : "1"),
+                                SortType = (Request.QueryString["SortType"] != null ? Request.QueryString["SortType"] : "1"),
+                                ShowType = "1",
+                                pricemin = (Request.QueryString["pricemin"] != null ? Request.QueryString["pricemin"] : ""),
+                                pricemax = (Request.QueryString["pricemax"] != null ? Request.QueryString["pricemax"] : ""),
+                                currency = (Request.QueryString["currency"] != null ? Request.QueryString["currency"] : "")
+                            }, null)
+                            </td>
+                            <td style="text-align: right; width: 10%">
+                                <span id="sel-type-im">Мозаикой</span>
+                            </td>
+                            <td style="width: 45%">
+                                <table style="width: 100%">
+                                    <tr>
+                                        <td style="width: 40%; text-align: right">
+                                            Сортировать:
+                                        </td>
+                                        <td style="width: 60%">
+                                            @using (Html.BeginForm("SearchByParams", "SearchBox", FormMethod.Get, new { ID = "sortByForm" }))
+                                            {
+       
+                                                @Html.DropDownList("sortType", new List<SelectListItem>
+                                                 {
+                                                    new SelectListItem{ Text="По дате - сначала новые", Value = "1",Selected=(Request.QueryString["sortType"]=="1"?true:false) }, 
+                                                    new SelectListItem{ Text="По дате - сначала старые", Value = "2",Selected=(Request.QueryString["sortType"]=="2"?true:false) }, 
+                                                    new SelectListItem{ Text="По цена - по возрастанию", Value = "3",Selected=(Request.QueryString["sortType"]=="3"?true:false) }, 
+                                                    new SelectListItem{ Text="По цена - по убыванию", Value = "4",Selected=(Request.QueryString["sortType"]=="4"?true:false) } 
+                        
+                                                 }, new { @class = "sortBoxDDL" }) 
+                        
+                                                @Html.Hidden("PropertyType",
+                                       (string.IsNullOrEmpty(@Request.QueryString["PropertyType"]) ? "-1" : @Request.QueryString["PropertyType"]))
+                                       
+                                                @Html.Hidden("PropertyTypeAction",
+                                       (string.IsNullOrEmpty(@Request.QueryString["PropertyTypeAction"]) ? "-1" : @Request.QueryString["PropertyTypeAction"]))
+                                       
+                                                @Html.Hidden("PropertyTypeCities",
+                                       (string.IsNullOrEmpty(@Request.QueryString["PropertyTypeCities"]) ? "-1" : @Request.QueryString["PropertyTypeCities"]))
+
+                                                @Html.Hidden("PropertyTypeCityDistrict",
+                                        (string.IsNullOrEmpty(@Request.QueryString["PropertyTypeCityDistrict"]) ? "-1" : @Request.QueryString["PropertyTypeCityDistrict"]))
+
+                                                @Html.Hidden("NavigatePage",
+                                       (string.IsNullOrEmpty(@Request.QueryString["NavigatePage"]) ? "1" : @Request.QueryString["NavigatePage"]))
+
+                                                if (Request.QueryString["pricemin"] != null)
+                                                {
+                                                @Html.Hidden("pricemin", Request.QueryString["pricemin"])
+                                                }
+
+                                                if (Request.QueryString["pricemax"] != null)
+                                                {
+                                                @Html.Hidden("pricemax", Request.QueryString["pricemax"])
+                                                }
+
+                                                if (Request.QueryString["currency"] != null)
+                                                {
+                                                @Html.Hidden("currency", Request.QueryString["currency"])
+                                                }
+
+
+                                                if (Request.QueryString["commercialPropertyType"] != null)
+                                                {
+                                                @Html.Hidden("commercialPropertyType", Request.QueryString["commercialPropertyType"])
+                                                }
+                                                if (Request.QueryString["countFloors"] != null)
+                                                {
+                                                @Html.Hidden("countFloors", Request.QueryString["countFloors"])
+                                                }
+                                                if (Request.QueryString["distToCityMin"] != null)
+                                                {
+                                                @Html.Hidden("distToCityMin", Request.QueryString["distToCityMin"])
+                                                }
+                                                if (Request.QueryString["distToCityMax"] != null)
+                                                {
+                                                @Html.Hidden("distToCityMax", Request.QueryString["distToCityMax"])
+                                                }
+                                                if (Request.QueryString["buildingType"] != null)
+                                                {
+                                                @Html.Hidden("buildingType", Request.QueryString["buildingType"])
+                                                }
+                                                if (Request.QueryString["wcType"] != null)
+                                                {
+                                                @Html.Hidden("wcType", Request.QueryString["wcType"])
+                                                }
+                                                if (Request.QueryString["roomCount"] != null)
+                                                {
+                                                @Html.Hidden("roomCount", Request.QueryString["roomCount"])
+                                                }
+                                                if (Request.QueryString["sizemin"] != null)
+                                                {
+                                                @Html.Hidden("sizemin", Request.QueryString["sizemin"])
+                                                }
+                                                if (Request.QueryString["sizemax"] != null)
+                                                {
+                                                @Html.Hidden("sizemax", Request.QueryString["sizemax"])
+                                                }
+
+                                                //@Html.Hidden("SortType", (Request.QueryString["SortType"] != null ? Request.QueryString["SortType"] : "1"))
+                                                //@Html.Hidden("ShowType", (Request.QueryString["ShowType"] != null ? Request.QueryString["ShowType"] : "-1"))
+
+
+
+                                            }
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                @Html.Action("ShowSearchPath", "SearchResult", Request.QueryString)
+                @Html.Action("ShowPaging", "SearchResult", Request.QueryString)
+                <table style="width: 100%" id="ads-found">
+                    <tbody>
+                        @{
+                            int tmp = 0;
+                        }
+                        @foreach (var item in Model)
+                        {
+
+                            if (tmp == 0)
+                            {             
+                            @Html.Raw("<tr>")
+                            }
+        
+        
+                            <td class="offer-photo">
+                                <a href="../SearchResult/ObjectDetails?id=@item.Id">
+                                <img src='../SearchResult/getImgPreview?id=@item.Id' alt="@item.Title" title="@item.Title" style="padding:5px; border:1px solid #DDD; background-color:whiteSmoke" />
+                                </a>
+                                <div style="color: #999; font-size: 8pt; margin-top: 2px">
+                                    Фото:&nbsp;@item.CountPhotos
+                                    <br />
+                                    @item.CreatedDate
+                                </div>
+                            </td>
+
+                            <td class="offer-desc">
+                                <h3>@Html.ActionLink(item.Title, "ObjectDetails", "SearchResult",
+                                new
+                                {
+                                    id = @item.Id
+                                }, null)
+                                </h3>
+                                <p>
+                                    @{
+                            if (@item.PropertyDescription.Length > 200)
+                            {
+                                        @item.PropertyDescription.Substring(0, 199)
+                            }
+                            else
+                            {
+                                        @item.PropertyDescription
+                            }
+                                    }
+                                </p>
+                                <p class="price">
+                                    Цена: <span style="color: #DD491F;">
+                                    @if (@item.Price == 0)
+                                    {
+                                   @Html.Raw("Договорная")
+                                    }
+                                    else
+                                    {
+                                    @item.Price
+                                    }
+                                     &nbsp;
+
+                                        @if (@item.Currency != null)
+                                        {
+                                            @Html.Raw(@item.Currency.CurrencyTypeName)
+                                        }
+                                    </span>
+                                </p>
+                            </td>
+             
+                                        if (tmp == 0)
+                                        {
+
+                                        }
+                                        tmp++;
+                                        if (tmp == 2)
+                                        {
+                                            tmp = 0;
+                            @Html.Raw("</tr>");
+                                        }
+
+                        }
+                        @if (tmp != 0)
+                        {
+                            @Html.Raw("</tr>");
+                        }
+                    </tbody>
+                </table>
+                @Html.Action("ShowPaging", "SearchResult", Request.QueryString)
+            </td>
+        </tr>
+    </tbody>
+</table>
+@section scripts{
+    @Content.Script("cascadeSB_DDLs.js", Url)
+    @Content.Script("sortby.js", Url)
+}
